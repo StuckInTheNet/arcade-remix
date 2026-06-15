@@ -27,6 +27,7 @@ class TetrisGame {
     this.clearAnimations = [];
     this.particles = [];
     this._onKey = null;
+    this._blockEmojiCache = undefined;
     this.colors = this._buildPalette();
   }
 
@@ -815,6 +816,16 @@ class TetrisGame {
       ctx.fillStyle = 'rgba(0,0,0,0.15)';
       ctx.fillRect(x + 2, y + s - 4, s - 4, 2);
     }
+
+    // Emoji overlay on every block (if material matches an emoji)
+    const blockEmoji = this._getBlockEmoji();
+    if (blockEmoji) {
+      const emojiSize = Math.round(s * 0.75);
+      ctx.font = `${emojiSize}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(blockEmoji, x + s / 2, y + s * 0.78);
+      ctx.textAlign = 'left';
+    }
   }
 
   _drawBackground() {
@@ -1024,6 +1035,36 @@ class TetrisGame {
       ctx.font = '9px JetBrains Mono';
       ctx.fillText(`matched: ${matched.join(' | ')}`, this.offsetX, this.canvas.height - 12);
     }
+  }
+
+  _getBlockEmoji() {
+    if (this._blockEmojiCache !== undefined) return this._blockEmojiCache;
+    const t = (this.theme.blockMaterial || '').toLowerCase();
+    const map = {
+      penguin:'🐧', cat:'🐱', kitten:'🐱', dog:'🐶', puppy:'🐶', bear:'🐻', panda:'🐼',
+      frog:'🐸', snake:'🐍', fish:'🐟', shark:'🦈', whale:'🐋', dolphin:'🐬', octopus:'🐙',
+      monkey:'🐵', chicken:'🐔', duck:'🦆', bird:'🐦', butterfly:'🦋', bee:'🐝', bug:'🐛',
+      dragon:'🐉', unicorn:'🦄', alien:'👽', robot:'🤖', ghost:'👻', skull:'💀', zombie:'🧟',
+      pizza:'🍕', taco:'🌮', burger:'🍔', sushi:'🍣', donut:'🍩', cookie:'🍪', cake:'🧁',
+      candy:'🍬', chocolate:'🍫', cheese:'🧀', apple:'🍎', cherry:'🍒', grape:'🍇',
+      banana:'🍌', watermelon:'🍉', strawberry:'🍓', lemon:'🍋', orange:'🍊', peach:'🍑',
+      star:'⭐', moon:'🌙', sun:'☀️', planet:'🌍', comet:'☄️', meteor:'☄️',
+      heart:'❤️', love:'❤️', diamond:'💎', gem:'💎', crystal:'🔮', crown:'👑',
+      coin:'🪙', money:'💰', treasure:'👑', gold:'🪙',
+      bomb:'💣', fire:'🔥', flame:'🔥', lightning:'⚡', snowflake:'❄️', snow:'❄️',
+      flower:'🌸', rose:'🌹', tree:'🌲', leaf:'🍃', mushroom:'🍄', cactus:'🌵',
+      soccer:'⚽', basketball:'🏀', baseball:'⚾', tennis:'🎾', football:'🏈',
+      car:'🚗', rocket:'🚀', plane:'✈️', boat:'⛵', train:'🚂',
+      book:'📚', music:'🎵', guitar:'🎸', dice:'🎲', balloon:'🎈',
+      poop:'💩', clown:'🤡', pirate:'🏴‍☠️', ninja:'🥷', wizard:'🧙',
+      eye:'👁️', brain:'🧠', tooth:'🦷',
+      brick:'🧱', ice:'🧊', cloud:'☁️', rainbow:'🌈',
+    };
+    for (const [word, emoji] of Object.entries(map)) {
+      if (t.includes(word)) { this._blockEmojiCache = emoji; return emoji; }
+    }
+    this._blockEmojiCache = null;
+    return null;
   }
 
   _darkenColor(hex, amount) {
