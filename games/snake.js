@@ -191,13 +191,28 @@ class SnakeGame {
       bodyColor = '#8b0000'; headColor = '#cc0000'; this._matchedSnake = 'dark';
     }
 
+    const snakeEmoji = this._getSnakeEmoji();
+
     this.snake.forEach((seg, i) => {
       const x = seg.x * cellSize;
       const y = seg.y * cellSize;
       const isHead = i === 0;
 
-      if (isHead) {
-        // Head with glow
+      if (snakeEmoji) {
+        // Emoji rendering for the whole snake
+        const sz = Math.round(cellSize * 0.9);
+        ctx.font = `${sz}px sans-serif`;
+        ctx.textAlign = 'center';
+        if (isHead) {
+          ctx.fillText(snakeEmoji.head, x + cellSize / 2, y + cellSize * 0.85);
+        } else {
+          ctx.globalAlpha = 1 - (i / this.snake.length) * 0.3;
+          ctx.fillText(snakeEmoji.body, x + cellSize / 2, y + cellSize * 0.85);
+          ctx.globalAlpha = 1;
+        }
+        ctx.textAlign = 'left';
+      } else if (isHead) {
+        // Default head: circle with eyes
         ctx.shadowColor = headColor;
         ctx.shadowBlur = 8;
         ctx.fillStyle = headColor;
@@ -206,7 +221,6 @@ class SnakeGame {
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // Eyes
         ctx.fillStyle = '#fff';
         const ex1 = x + cellSize * 0.3;
         const ex2 = x + cellSize * 0.7;
@@ -225,10 +239,9 @@ class SnakeGame {
         ctx.arc(ex2 + this.dir.x, ey + this.dir.y, 1.2, 0, Math.PI * 2);
         ctx.fill();
       } else {
+        // Default body: gradient rounded segment
         const ratio = 1 - (i / this.snake.length) * 0.3;
         ctx.globalAlpha = ratio;
-        // Gradient from head color to body color based on position
-        const t = i / this.snake.length;
         const segColor = i <= 2 ? headColor : bodyColor;
         const segGrad = ctx.createLinearGradient(x, y, x, y + cellSize);
         segGrad.addColorStop(0, segColor);
@@ -488,6 +501,31 @@ class SnakeGame {
       ctx.fillText(foodEmoji, x, y + this.cellSize * 0.25);
       ctx.textAlign = 'left';
     }
+  }
+
+  _getSnakeEmoji() {
+    const t = (this.theme.snakeIs || '').toLowerCase();
+    if (t.includes('dragon') || t.includes('fire')) return { head: '🐉', body: '🔥' };
+    if (t.includes('cat') || t.includes('kitten')) return { head: '🐱', body: '🐾' };
+    if (t.includes('dog') || t.includes('puppy')) return { head: '🐶', body: '🐾' };
+    if (t.includes('robot') || t.includes('mech')) return { head: '🤖', body: '⚙️' };
+    if (t.includes('sushi') || t.includes('food')) return { head: '🍣', body: '🍙' };
+    if (t.includes('pizza')) return { head: '🍕', body: '🧀' };
+    if (t.includes('train') || t.includes('conga')) return { head: '🚂', body: '🚃' };
+    if (t.includes('penguin')) return { head: '🐧', body: '🧊' };
+    if (t.includes('worm') || t.includes('earth')) return { head: '🪱', body: '🟤' };
+    if (t.includes('snake') || t.includes('cobra')) return { head: '🐍', body: '🟢' };
+    if (t.includes('ghost') || t.includes('spooky')) return { head: '👻', body: '💀' };
+    if (t.includes('alien') || t.includes('ufo')) return { head: '👽', body: '🛸' };
+    if (t.includes('rainbow') || t.includes('unicorn')) return { head: '🦄', body: '🌈' };
+    if (t.includes('shark') || t.includes('fish')) return { head: '🦈', body: '🐟' };
+    if (t.includes('candy') || t.includes('sweet')) return { head: '🍬', body: '🍭' };
+    if (t.includes('neon') || t.includes('electric')) return { head: '⚡', body: '💜' };
+    if (t.includes('ice') || t.includes('frozen')) return { head: '🧊', body: '❄️' };
+    if (t.includes('gold') || t.includes('treasure')) return { head: '👑', body: '💰' };
+    if (t.includes('zombie') || t.includes('undead')) return { head: '🧟', body: '💀' };
+    if (t.includes('monkey') || t.includes('ape')) return { head: '🐵', body: '🍌' };
+    return null;
   }
 
   _getFoodEmoji(t) {

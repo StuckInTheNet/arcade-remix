@@ -30,8 +30,8 @@ class DodgeGame {
     this.powerups = [];
     this.particles = [];
     this.spawnTimer = 0;
-    this.spawnInterval = 40;
-    this.fallSpeed = 3;
+    this.spawnInterval = 80;
+    this.fallSpeed = 2;
     this.powerupTimer = 0;
 
     // Invincibility
@@ -59,8 +59,8 @@ class DodgeGame {
     this.powerups = [];
     this.particles = [];
     this.spawnTimer = 0;
-    this.spawnInterval = 40;
-    this.fallSpeed = 3;
+    this.spawnInterval = 80;
+    this.fallSpeed = 2;
     this.powerupTimer = 0;
     this.invincible = false;
     this.invincibleTimer = 0;
@@ -100,7 +100,7 @@ class DodgeGame {
     // Increase difficulty over time
     if (this.frameCount % 300 === 0) {
       this.fallSpeed += 0.3;
-      this.spawnInterval = Math.max(15, this.spawnInterval - 2);
+      this.spawnInterval = Math.max(30, this.spawnInterval - 1);
     }
 
     // Player movement

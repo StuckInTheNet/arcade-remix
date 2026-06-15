@@ -29,7 +29,7 @@ class RunnerGame {
     this.keys = {};
     this.lastObstacle = 0;
     this.lastPowerup = 0;
-    this.obstacleInterval = 90;
+    this.obstacleInterval = 120;
     this.frameCount = 0;
   }
 
@@ -49,7 +49,7 @@ class RunnerGame {
     this.gameOver = false;
     this.lastObstacle = 0;
     this.lastPowerup = 0;
-    this.obstacleInterval = 90;
+    this.obstacleInterval = 120;
     this.frameCount = 0;
     this.keys = {};
 
@@ -115,7 +115,7 @@ class RunnerGame {
         h: h,
       });
       // Randomize next interval
-      this.obstacleInterval = Math.max(40, 70 + Math.floor(Math.random() * 40) - Math.floor(this.speed));
+      this.obstacleInterval = Math.max(60, 90 + Math.floor(Math.random() * 50) - Math.floor(this.speed));
     }
 
     // Spawn powerups

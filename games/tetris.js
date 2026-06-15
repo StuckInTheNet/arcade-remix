@@ -200,160 +200,159 @@ class TetrisGame {
 
   _spawnLineParticles(row) {
     const fx = (this.theme.clearEffect || '').toLowerCase();
-    const baseY = this.offsetY + row * this.cellSize + this.cellSize / 2;
+    const cs = this.cellSize;
+    const baseY = this.offsetY + row * cs + cs / 2;
 
     for (let c = 0; c < this.cols; c++) {
       const color = this.grid[row][c] || '#fff';
       const baseX = this.offsetX + c * this.cellSize + this.cellSize / 2;
 
       if (fx.includes('flame') || fx.includes('fire') || fx.includes('burn') || fx.includes('inferno') || fx.includes('ignite') || fx.includes('blaze')) {
-        // Flames shooting upward
-        for (let i = 0; i < 4; i++) {
+        // Flames shooting upward — big and visible
+        for (let i = 0; i < 8; i++) {
           this.particles.push({
-            x: baseX + (Math.random() - 0.5) * this.cellSize,
+            x: baseX + (Math.random() - 0.5) * this.cellSize * 1.5,
             y: baseY,
-            vx: (Math.random() - 0.5) * 2,
-            vy: -(Math.random() * 8 + 3),
-            life: 1.2,
-            color: ['#ff0', '#ff8800', '#ff4400', '#ff0000'][i % 4],
-            size: Math.random() * 6 + 3,
+            vx: (Math.random() - 0.5) * 3,
+            vy: -(Math.random() * 12 + 4),
+            life: 1.4,
+            color: ['#ffff00', '#ff8800', '#ff4400', '#ff0000', '#ffcc00'][i % 5],
+            size: Math.random() * this.cellSize * 0.4 + this.cellSize * 0.2,
             type: 'circle',
           });
         }
       }
       else if (fx.includes('explode') || fx.includes('blast') || fx.includes('boom') || fx.includes('detonate') || fx.includes('bomb')) {
-        // Big radial explosion
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 8; i++) {
           const angle = Math.random() * Math.PI * 2;
-          const speed = 3 + Math.random() * 8;
+          const speed = 5 + Math.random() * 10;
           this.particles.push({
             x: baseX, y: baseY,
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
-            life: 0.9,
-            color: ['#fff', '#ff0', '#f80', '#f00', '#ff4'][i % 5],
-            size: Math.random() * 6 + 3,
+            life: 1,
+            color: ['#fff', '#ffff00', '#ff8800', '#ff0000', '#ff4400'][i % 5],
+            size: Math.random() * cs * 0.3 + cs * 0.15,
           });
         }
       }
       else if (fx.includes('shatter') || fx.includes('diamond') || fx.includes('crystal') || fx.includes('glass') || fx.includes('smash')) {
-        // Sharp shards flying out
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 6; i++) {
           this.particles.push({
-            x: baseX + (Math.random() - 0.5) * this.cellSize,
-            y: baseY + (Math.random() - 0.5) * this.cellSize,
-            vx: (Math.random() - 0.5) * 12,
-            vy: (Math.random() - 0.5) * 10 - 3,
-            life: 1,
+            x: baseX + (Math.random() - 0.5) * cs,
+            y: baseY + (Math.random() - 0.5) * cs,
+            vx: (Math.random() - 0.5) * 14,
+            vy: (Math.random() - 0.5) * 12 - 3,
+            life: 1.1,
             color: color,
-            size: Math.random() * 5 + 2,
+            size: Math.random() * cs * 0.25 + cs * 0.1,
             type: 'shard',
           });
         }
       }
       else if (fx.includes('melt') || fx.includes('drip') || fx.includes('dissolve') || fx.includes('goo') || fx.includes('ooze') || fx.includes('liquid')) {
-        // Dripping downward
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 5; i++) {
           this.particles.push({
-            x: baseX + (Math.random() - 0.5) * this.cellSize,
+            x: baseX + (Math.random() - 0.5) * cs,
             y: baseY,
-            vx: (Math.random() - 0.5) * 1,
-            vy: Math.random() * 4 + 1,
-            life: 1.5,
+            vx: (Math.random() - 0.5) * 1.5,
+            vy: Math.random() * 5 + 1,
+            life: 1.6,
             color: color,
-            size: Math.random() * 7 + 3,
+            size: Math.random() * cs * 0.3 + cs * 0.15,
             type: 'drip',
           });
         }
       }
       else if (fx.includes('confetti') || fx.includes('party') || fx.includes('celebrate') || fx.includes('sparkle') || fx.includes('glitter')) {
         const colors = ['#ff0', '#f0f', '#0ff', '#0f0', '#f80', '#80f', '#f08'];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 6; i++) {
           this.particles.push({
             x: baseX, y: baseY,
-            vx: (Math.random() - 0.5) * 8,
-            vy: -(Math.random() * 6 + 2),
-            life: 1.3,
+            vx: (Math.random() - 0.5) * 10,
+            vy: -(Math.random() * 8 + 2),
+            life: 1.4,
             color: colors[Math.floor(Math.random() * colors.length)],
-            size: Math.random() * 5 + 2,
+            size: Math.random() * cs * 0.25 + cs * 0.1,
           });
         }
       }
       else if (fx.includes('butterfly') || fx.includes('flutter') || fx.includes('petal') || fx.includes('flower') || fx.includes('blossom')) {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 5; i++) {
           this.particles.push({
-            x: baseX + (Math.random() - 0.5) * this.cellSize * 2,
+            x: baseX + (Math.random() - 0.5) * cs * 2,
             y: baseY,
             vx: (Math.random() - 0.5) * 4,
             vy: -(Math.random() * 3 + 1),
-            life: 1.5,
+            life: 1.6,
             color: ['#ff69b4', '#ffb6c1', '#dda0dd', '#ff1493', '#fff'][i % 5],
-            size: Math.random() * 6 + 3,
+            size: Math.random() * cs * 0.3 + cs * 0.15,
             type: 'circle',
           });
         }
       }
       else if (fx.includes('lightning') || fx.includes('electric') || fx.includes('shock') || fx.includes('zap') || fx.includes('thunder')) {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 6; i++) {
           this.particles.push({
             x: baseX, y: baseY,
-            vx: (Math.random() - 0.5) * 15,
-            vy: (Math.random() - 0.5) * 15,
-            life: 0.4,
-            color: ['#fff', '#aaf', '#88f', '#ff0'][i % 4],
-            size: Math.random() * 3 + 1,
+            vx: (Math.random() - 0.5) * 18,
+            vy: (Math.random() - 0.5) * 18,
+            life: 0.5,
+            color: ['#ffffff', '#aaaaff', '#8888ff', '#ffff00'][i % 4],
+            size: Math.random() * cs * 0.15 + cs * 0.05,
+            type: 'circle',
           });
         }
       }
       else if (fx.includes('snow') || fx.includes('frost') || fx.includes('freeze') || fx.includes('ice') || fx.includes('frozen')) {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 5; i++) {
           this.particles.push({
-            x: baseX + (Math.random() - 0.5) * this.cellSize,
+            x: baseX + (Math.random() - 0.5) * cs,
             y: baseY,
             vx: (Math.random() - 0.5) * 3,
             vy: -(Math.random() * 2 + 0.5),
-            life: 1.5,
-            color: ['#aaddff', '#ffffff', '#cceeFF', '#88bbff'][i % 4],
-            size: Math.random() * 5 + 3,
+            life: 1.6,
+            color: ['#aaddff', '#ffffff', '#cceeff', '#88bbff'][i % 4],
+            size: Math.random() * cs * 0.25 + cs * 0.1,
             type: 'circle',
           });
         }
       }
       else if (fx.includes('star') || fx.includes('cosmic') || fx.includes('galaxy') || fx.includes('nova') || fx.includes('supernova')) {
-        for (let i = 0; i < 4; i++) {
-          const angle = (i / 4) * Math.PI * 2 + Math.random() * 0.5;
+        for (let i = 0; i < 6; i++) {
+          const angle = (i / 6) * Math.PI * 2 + Math.random() * 0.5;
           this.particles.push({
             x: baseX, y: baseY,
-            vx: Math.cos(angle) * (4 + Math.random() * 4),
-            vy: Math.sin(angle) * (4 + Math.random() * 4),
-            life: 1,
-            color: ['#ffd700', '#fff', '#00bfff', '#ff69b4'][i % 4],
-            size: Math.random() * 5 + 2,
+            vx: Math.cos(angle) * (5 + Math.random() * 5),
+            vy: Math.sin(angle) * (5 + Math.random() * 5),
+            life: 1.1,
+            color: ['#ffd700', '#ffffff', '#00bfff', '#ff69b4'][i % 4],
+            size: Math.random() * cs * 0.25 + cs * 0.1,
             type: 'circle',
           });
         }
       }
       else if (fx.includes('smoke') || fx.includes('poof') || fx.includes('vanish') || fx.includes('disappear') || fx.includes('fade')) {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 5; i++) {
           this.particles.push({
-            x: baseX + (Math.random() - 0.5) * this.cellSize,
+            x: baseX + (Math.random() - 0.5) * cs,
             y: baseY,
             vx: (Math.random() - 0.5) * 2,
             vy: -(Math.random() * 2 + 0.5),
-            life: 1.5,
+            life: 1.6,
             color: 'rgba(180,180,200,0.6)',
-            size: Math.random() * 8 + 4,
+            size: Math.random() * cs * 0.4 + cs * 0.2,
             type: 'circle',
           });
         }
       }
       else {
         // Default burst
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 5; i++) {
           this.particles.push({
             x: baseX, y: baseY,
-            vx: (Math.random() - 0.5) * 6,
-            vy: (Math.random() - 0.5) * 6 - 2,
+            vx: (Math.random() - 0.5) * 8,
+            vy: (Math.random() - 0.5) * 8 - 2,
             life: 1,
             color,
             size: Math.random() * 4 + 2,
