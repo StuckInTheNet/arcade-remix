@@ -27,16 +27,11 @@ Or just open `index.html`. That's it. Zero dependencies.
 
 ## SELECT YOUR CARTRIDGE
 
-| | | | |
-|:---:|:---:|:---:|:---:|
-| **Tetris** | **Snake** | **Breakout** | **Invaders** |
-| Puzzle | Arcade | Action | Shooter |
-| **Pong** | **Runner** | **Flappy** | **Asteroids** |
-| Sports | Runner | Arcade | Shooter |
-| **Match 3** | **Platformer** | **Dodge** | **Create** |
-| Puzzle | Platform | Action | Build your own |
+<p align="center">
+  <img src="games-grid.svg" alt="11 games + Create mode" width="100%">
+</p>
 
-**11 games** + a custom game builder that remixes engines with your own prompts.
+<p align="center"><b>11 games</b> + a custom game builder that remixes engines with your own prompts.</p>
 
 ---
 
