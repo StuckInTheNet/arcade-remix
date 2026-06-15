@@ -130,6 +130,12 @@ class AsteroidsGame {
     if (t.includes('ghost') || t.includes('phantom')) return '👻';
     if (t.includes('dragon') || t.includes('drake')) return '🐉';
     if (t.includes('ninja') || t.includes('assassin')) return '🥷';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -147,6 +153,12 @@ class AsteroidsGame {
     if (t.includes('snowball') || t.includes('ice') || t.includes('snow')) return '⛄';
     if (t.includes('pumpkin') || t.includes('halloween') || t.includes('jack')) return '🎃';
     if (t.includes('star') || t.includes('comet') || t.includes('meteor')) return '☄️';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -160,6 +172,12 @@ class AsteroidsGame {
     if (t.includes('snowball') || t.includes('ice') || t.includes('snow')) return '❄️';
     if (t.includes('bomb') || t.includes('missile') || t.includes('rocket')) return '💣';
     if (t.includes('arrow') || t.includes('bow')) return '➡️';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -172,6 +190,11 @@ class AsteroidsGame {
     if (t.includes('ghost') || t.includes('phantom')) return '#aabbcc';
     if (t.includes('dark') || t.includes('shadow') || t.includes('stealth')) return '#555577';
     if (t.includes('rainbow') || t.includes('unicorn')) return '#ff69b4';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#00ff88';
   }
 
@@ -183,6 +206,11 @@ class AsteroidsGame {
     if (t.includes('heart') || t.includes('love')) return '#ff1493';
     if (t.includes('gold') || t.includes('royal')) return '#ffd700';
     if (t.includes('toxic') || t.includes('poison') || t.includes('acid')) return '#00ff00';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#ffffff';
   }
 
@@ -529,6 +557,11 @@ class AsteroidsGame {
     if (t.includes('neon') || t.includes('cyber') || t.includes('electric')) return '#00ffff';
     if (t.includes('toxic') || t.includes('poison') || t.includes('acid')) return '#00ff00';
     if (t.includes('candy') || t.includes('sweet') || t.includes('pink')) return '#ff69b4';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#aaaaaa';
   }
 
@@ -564,6 +597,15 @@ class AsteroidsGame {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else if (theme.includes('deep') || theme.includes('void') || theme.includes('dark') || theme.includes('black')) {
       ctx.fillStyle = '#020204';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    } else if (theme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < theme.length; i++) hash = ((hash << 5) - hash + theme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const spaceGrad = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width * 0.7);
+      spaceGrad.addColorStop(0, `hsl(${hue}, 20%, 10%)`);
+      spaceGrad.addColorStop(1, `hsl(${hue}, 15%, 4%)`);
+      ctx.fillStyle = spaceGrad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {
       // Default: deep space

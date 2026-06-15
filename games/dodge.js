@@ -270,6 +270,12 @@ class DodgeGame {
     if (t.includes('frog') || t.includes('toad')) return '🐸';
     if (t.includes('dog') || t.includes('puppy') || t.includes('wolf')) return '🐕';
     if (t.includes('bird') || t.includes('eagle') || t.includes('hawk')) return '🐦';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -287,6 +293,12 @@ class DodgeGame {
     if (t.includes('spider') || t.includes('bug') || t.includes('insect')) return '🕷️';
     if (t.includes('trash') || t.includes('garbage')) return '🗑️';
     if (t.includes('cactus')) return '🌵';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -310,6 +322,11 @@ class DodgeGame {
     if (t.includes('neon') || t.includes('cyber') || t.includes('electric')) return '#00ffff';
     if (t.includes('gold') || t.includes('royal') || t.includes('king')) return '#ffd700';
     if (t.includes('ghost') || t.includes('phantom')) return '#aabbcc';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#44bb66';
   }
 
@@ -320,6 +337,11 @@ class DodgeGame {
     if (t.includes('poison') || t.includes('toxic') || t.includes('acid')) return '#00ff44';
     if (t.includes('rock') || t.includes('stone') || t.includes('boulder')) return '#888888';
     if (t.includes('gold') || t.includes('treasure')) return '#ffd700';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#ee4444';
   }
 
@@ -550,6 +572,15 @@ class DodgeGame {
       const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
       grad.addColorStop(0, '#102030');
       grad.addColorStop(1, '#1a3040');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    } else if (theme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < theme.length; i++) hash = ((hash << 5) - hash + theme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const grad = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width * 0.6);
+      grad.addColorStop(0, `hsl(${hue}, 20%, 10%)`);
+      grad.addColorStop(1, `hsl(${hue}, 15%, 5%)`);
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {

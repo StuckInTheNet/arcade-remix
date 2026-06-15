@@ -85,6 +85,12 @@ class FlappyGame {
     else if (fx.includes('smoke') || fx.includes('cloud') || fx.includes('puff')) color = 'rgba(180,180,180,';
     else if (fx.includes('rainbow') || fx.includes('color')) color = 'rgba(255,0,255,';
     else if (fx.includes('electric') || fx.includes('lightning') || fx.includes('spark') || fx.includes('neon')) color = 'rgba(0,255,255,';
+    else if (fx.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < fx.length; i++) hash = ((hash << 5) - hash + fx.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      color = `hsla(${hue}, 70%, 55%,`;
+    }
 
     for (let i = 0; i < 5; i++) {
       this.particles.push({
@@ -119,6 +125,12 @@ class FlappyGame {
     if (t.includes('eagle') || t.includes('hawk') || t.includes('falcon')) return '🦅';
     if (t.includes('parrot') || t.includes('macaw')) return '🦜';
     if (t.includes('duck') || t.includes('goose')) return '🦆';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -132,6 +144,12 @@ class FlappyGame {
     if (t.includes('crystal') || t.includes('gem') || t.includes('diamond')) return '💎';
     if (t.includes('pillar') || t.includes('column') || t.includes('stone') || t.includes('rock')) return '🪨';
     if (t.includes('bamboo') || t.includes('stalk')) return '🎋';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -144,6 +162,11 @@ class FlappyGame {
     if (t.includes('ghost') || t.includes('phantom')) return '#aabbcc';
     if (t.includes('dark') || t.includes('shadow') || t.includes('black')) return '#444466';
     if (t.includes('rainbow') || t.includes('unicorn')) return '#ff69b4';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#ffcc00';
   }
 
@@ -156,6 +179,11 @@ class FlappyGame {
     if (t.includes('wood') || t.includes('tree') || t.includes('bamboo')) return '#8B4513';
     if (t.includes('stone') || t.includes('rock') || t.includes('pillar')) return '#666666';
     if (t.includes('neon') || t.includes('cyber')) return '#00ff88';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#2ecc71';
   }
 
@@ -451,6 +479,16 @@ class FlappyGame {
       grad.addColorStop(0, '#200030');
       grad.addColorStop(1, '#301040');
       ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    } else if (theme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < theme.length; i++) hash = ((hash << 5) - hash + theme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const defGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      defGrad.addColorStop(0, `hsl(${hue}, 20%, 12%)`);
+      defGrad.addColorStop(0.6, `hsl(${hue}, 18%, 7%)`);
+      defGrad.addColorStop(1, `hsl(${hue}, 15%, 5%)`);
+      ctx.fillStyle = defGrad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {
       const defGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);

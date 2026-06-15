@@ -292,6 +292,12 @@ class PlatformerGame {
     if (t.includes('alien') || t.includes('ufo')) return '👽';
     if (t.includes('monkey') || t.includes('ape')) return '🐒';
     if (t.includes('bird') || t.includes('eagle') || t.includes('hawk')) return '🐦';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -318,6 +324,11 @@ class PlatformerGame {
     if (t.includes('neon') || t.includes('cyber') || t.includes('electric')) return '#00ffff';
     if (t.includes('gold') || t.includes('royal') || t.includes('king')) return '#ffd700';
     if (t.includes('ghost') || t.includes('phantom')) return '#aabbcc';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#5588ff';
   }
 
@@ -330,6 +341,7 @@ class PlatformerGame {
     if (t.includes('candy') || t.includes('sweet') || t.includes('pink') || t.includes('bubblegum')) return 'candy';
     if (t.includes('stone') || t.includes('rock') || t.includes('brick')) return 'stone';
     if (t.includes('metal') || t.includes('steel') || t.includes('iron')) return 'metal';
+    if (t.length > 0) return 'custom';
     return 'default';
   }
 
@@ -457,6 +469,27 @@ class PlatformerGame {
         ctx.beginPath();
         ctx.roundRect(p.x + 1, screenY + 1, p.w - 2, p.h - 2, 2);
         ctx.stroke();
+        break;
+      }
+      case 'custom': {
+        const _pt = (this.theme.platformsAre || '').toLowerCase();
+        let _ph = 0;
+        for (let i = 0; i < _pt.length; i++) _ph = ((_ph << 5) - _ph + _pt.charCodeAt(i)) | 0;
+        const _pHue = Math.abs(_ph) % 360;
+        const grad2 = ctx.createLinearGradient(p.x, screenY, p.x, screenY + p.h);
+        grad2.addColorStop(0, `hsl(${_pHue}, 60%, 50%)`);
+        grad2.addColorStop(1, `hsl(${_pHue}, 60%, 35%)`);
+        ctx.fillStyle = grad2;
+        ctx.shadowColor = `hsl(${_pHue}, 70%, 55%)`;
+        ctx.shadowBlur = 6;
+        ctx.beginPath();
+        ctx.roundRect(p.x, screenY, p.w, p.h, 4);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = 'rgba(255,255,255,0.2)';
+        ctx.beginPath();
+        ctx.roundRect(p.x + 2, screenY + 1, p.w - 4, p.h * 0.4, 2);
+        ctx.fill();
         break;
       }
       default: {
@@ -648,6 +681,15 @@ class PlatformerGame {
       const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
       grad.addColorStop(0, '#0a1533');
       grad.addColorStop(1, '#1a2a55');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    } else if (theme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < theme.length; i++) hash = ((hash << 5) - hash + theme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const grad = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width * 0.6);
+      grad.addColorStop(0, `hsl(${hue}, 20%, 10%)`);
+      grad.addColorStop(1, `hsl(${hue}, 15%, 5%)`);
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {

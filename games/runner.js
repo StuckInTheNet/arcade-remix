@@ -230,6 +230,12 @@ class RunnerGame {
     if (t.includes('ghost') || t.includes('phantom') || t.includes('spirit')) return '👻';
     if (t.includes('alien') || t.includes('ufo')) return '👽';
     if (t.includes('monkey') || t.includes('ape') || t.includes('gorilla')) return '🐒';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -249,6 +255,12 @@ class RunnerGame {
     if (t.includes('snowman') || t.includes('snow') || t.includes('ice')) return '⛄';
     if (t.includes('ghost') || t.includes('phantom')) return '👻';
     if (t.includes('mushroom') || t.includes('shroom')) return '🍄';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -277,6 +289,11 @@ class RunnerGame {
     if (t.includes('gold') || t.includes('royal') || t.includes('king')) return '#ffd700';
     if (t.includes('ghost') || t.includes('phantom')) return '#aabbcc';
     if (t.includes('toxic') || t.includes('poison') || t.includes('slime')) return '#00ff00';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#ff6b35';
   }
 
@@ -288,6 +305,11 @@ class RunnerGame {
     if (t.includes('cactus') || t.includes('tree') || t.includes('plant')) return '#228B22';
     if (t.includes('gold') || t.includes('treasure')) return '#ffd700';
     if (t.includes('toxic') || t.includes('poison') || t.includes('acid')) return '#00ff00';
+    if (t.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return `hsl(${Math.abs(hash) % 360}, 70%, 55%)`;
+    }
     return '#cc3333';
   }
 
@@ -492,6 +514,15 @@ class RunnerGame {
       grad.addColorStop(0, '#102030');
       grad.addColorStop(1, '#1a3040');
       ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    } else if (theme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < theme.length; i++) hash = ((hash << 5) - hash + theme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const defGrad = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width * 0.6);
+      defGrad.addColorStop(0, `hsl(${hue}, 20%, 10%)`);
+      defGrad.addColorStop(1, `hsl(${hue}, 15%, 5%)`);
+      ctx.fillStyle = defGrad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {
       const defGrad = ctx.createRadialGradient(canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width * 0.6);

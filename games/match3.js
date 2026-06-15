@@ -382,6 +382,13 @@ class Match3Game {
     for (const [keyword, emojis] of Object.entries(map)) {
       if (gemsTheme.includes(keyword)) return emojis;
     }
+    if (gemsTheme.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < gemsTheme.length; i++) hash = ((hash << 5) - hash + gemsTheme.charCodeAt(i)) | 0;
+      const idx = Math.abs(hash) % (pool.length - 6);
+      return pool.slice(idx, idx + 7);
+    }
     return null;
   }
 
@@ -454,6 +461,22 @@ class Match3Game {
           color: ['#ff0', '#f80', '#f40', '#f00'][i % 4],
           size: Math.random() * 6 + 3,
         });
+      }
+    } else if (fx.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < fx.length; i++) hash = ((hash << 5) - hash + fx.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const pColor = `hsl(${hue}, 70%, 55%)`;
+      const style = Math.abs(hash) % 3;
+      for (let i = 0; i < 8; i++) {
+        if (style === 0) {
+          this.particles.push({ x: cx+(Math.random()-0.5)*this.cellSize, y: cy, vx: (Math.random()-0.5)*3, vy: -(Math.random()*8+2), life: 1.1, color: pColor, size: Math.random()*5+3 });
+        } else if (style === 1) {
+          const angle = (i/8)*Math.PI*2; const speed = 3+Math.random()*4;
+          this.particles.push({ x: cx, y: cy, vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed, life: 0.8, color: pColor, size: Math.random()*5+3 });
+        } else {
+          this.particles.push({ x: cx+(Math.random()-0.5)*this.cellSize, y: cy, vx: (Math.random()-0.5)*2, vy: -(Math.random()*2+0.5), life: 1.4, color: pColor, size: Math.random()*5+3, type: 'circle' });
+        }
       }
     } else {
       // Default: colored squares
@@ -539,9 +562,18 @@ class Match3Game {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Background with radial gradient + vignette
+    const _m3BgTheme = (this.theme.worldTheme || '').toLowerCase();
+    let _m3Center = '#12122a', _m3Edge = '#0a0a18';
+    if (_m3BgTheme.length > 0) {
+      let _m3Hash = 0;
+      for (let i = 0; i < _m3BgTheme.length; i++) _m3Hash = ((_m3Hash << 5) - _m3Hash + _m3BgTheme.charCodeAt(i)) | 0;
+      const _m3Hue = Math.abs(_m3Hash) % 360;
+      _m3Center = `hsl(${_m3Hue}, 20%, 10%)`;
+      _m3Edge = `hsl(${_m3Hue}, 15%, 5%)`;
+    }
     const bgGrad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width * 0.6);
-    bgGrad.addColorStop(0, '#12122a');
-    bgGrad.addColorStop(1, '#0a0a18');
+    bgGrad.addColorStop(0, _m3Center);
+    bgGrad.addColorStop(1, _m3Edge);
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -768,6 +800,20 @@ class Match3Game {
         ctx.arc(tx, ty, Math.random() * 3 + 1, 0, Math.PI * 2);
         ctx.fill();
       }
+    } else if (style.length > 0) {
+      // Unrecognized: hash-tinted board
+      let hash = 0;
+      for (let i = 0; i < style.length; i++) hash = ((hash << 5) - hash + style.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      ctx.fillStyle = `hsla(${hue}, 30%, 15%, 0.4)`;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, bw, bh, 8);
+      ctx.fill();
+      ctx.strokeStyle = `hsla(${hue}, 50%, 50%, 0.2)`;
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(bx, by, bw, bh, 8);
+      ctx.stroke();
     } else {
       // Default: dark with subtle border
       ctx.fillStyle = 'rgba(255, 255, 255, 0.04)';
