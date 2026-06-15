@@ -611,7 +611,6 @@ class PongGame {
       grad.addColorStop(1, '#2a1500');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(255, 180, 60, 0.04)');
       drawBorderGlow('rgba(255, 150, 30, 0.08)');
     } else if (theme.includes('space') || theme.includes('deep') || theme.includes('star') || theme.includes('galaxy') || theme.includes('cosmic') || theme.includes('nebula') || theme.includes('planet') || theme.includes('alien') || theme.includes('moon') || theme.includes('mars') || theme.includes('orbit') || theme.includes('rocket') || theme.includes('ufo') || theme.includes('astro') || theme.includes('meteor') || theme.includes('void')) {
       this._matchedArena = 'space';
@@ -637,13 +636,11 @@ class PongGame {
       grad.addColorStop(1, '#004488');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(100, 200, 255, 0.04)');
       drawBorderGlow('rgba(0, 150, 255, 0.08)');
     } else if (theme.includes('neon') || theme.includes('cyber') || theme.includes('synth') || theme.includes('tron') || theme.includes('electric') || theme.includes('vaporwave') || theme.includes('arcade') || theme.includes('glitch') || theme.includes('retrowave') || theme.includes('digital') || theme.includes('hack') || theme.includes('matrix')) {
       this._matchedArena = 'cyberpunk';
       ctx.fillStyle = '#0a0020';
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(0, 255, 255, 0.05)');
       drawBorderGlow('rgba(0, 255, 255, 0.1)');
     } else if (theme.includes('volcan') || theme.includes('lava') || theme.includes('fire') || theme.includes('hell') || theme.includes('inferno') || theme.includes('magma') || theme.includes('flame') || theme.includes('ember') || theme.includes('dragon') || theme.includes('phoenix') || theme.includes('burn') || theme.includes('demon')) {
       this._matchedArena = 'volcanic';
@@ -653,7 +650,6 @@ class PongGame {
       grad.addColorStop(1, '#ff3300');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(255, 100, 0, 0.04)');
       drawBorderGlow('rgba(255, 80, 0, 0.1)');
     } else if (theme.includes('forest') || theme.includes('jungle') || theme.includes('tree') || theme.includes('nature') || theme.includes('garden') || theme.includes('meadow') || theme.includes('grass') || theme.includes('swamp') || theme.includes('wild') || theme.includes('leaf') || theme.includes('moss') || theme.includes('fern') || theme.includes('wood')) {
       this._matchedArena = 'forest';
@@ -662,7 +658,6 @@ class PongGame {
       grad.addColorStop(1, '#153500');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(0, 255, 0, 0.03)');
       drawBorderGlow('rgba(0, 200, 50, 0.08)');
     } else if (theme.includes('desert') || theme.includes('sand') || theme.includes('egypt') || theme.includes('pyramid') || theme.includes('dune') || theme.includes('cactus') || theme.includes('oasis') || theme.includes('sahara') || theme.includes('pharaoh') || theme.includes('camel')) {
       this._matchedArena = 'desert';
@@ -671,7 +666,6 @@ class PongGame {
       grad.addColorStop(1, '#3a2500');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(255, 200, 100, 0.03)');
       drawBorderGlow('rgba(255, 180, 60, 0.08)');
     } else if (theme.includes('snow') || theme.includes('arctic') || theme.includes('frozen') || theme.includes('winter') || theme.includes('ice') || theme.includes('glacier') || theme.includes('blizzard') || theme.includes('tundra') || theme.includes('polar') || theme.includes('christmas') || theme.includes('frost') || theme.includes('hockey') || theme.includes('rink')) {
       this._matchedArena = 'arctic';
@@ -680,7 +674,6 @@ class PongGame {
       grad.addColorStop(1, '#1a3040');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(150, 220, 255, 0.04)');
       drawBorderGlow('rgba(100, 200, 255, 0.08)');
     } else if (theme.includes('haunt') || theme.includes('grave') || theme.includes('spooky') || theme.includes('ghost') || theme.includes('zombie') || theme.includes('halloween') || theme.includes('horror') || theme.includes('creepy') || theme.includes('witch') || theme.includes('vampire') || theme.includes('cemetery') || theme.includes('skull') || theme.includes('monster') || theme.includes('dark')) {
       this._matchedArena = 'haunted';
@@ -689,7 +682,6 @@ class PongGame {
       grad.addColorStop(1, '#200a40');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(150, 0, 255, 0.03)');
       drawBorderGlow('rgba(150, 50, 255, 0.08)');
     } else if (theme.includes('sunset') || theme.includes('sunrise') || theme.includes('dusk') || theme.includes('twilight') || theme.includes('dawn') || theme.includes('evening') || theme.includes('golden')) {
       this._matchedArena = 'sunset';
@@ -699,7 +691,6 @@ class PongGame {
       grad.addColorStop(1, '#2a1800');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(255, 100, 50, 0.03)');
       drawBorderGlow('rgba(255, 100, 50, 0.08)');
     } else if (theme.includes('city') || theme.includes('urban') || theme.includes('tokyo') || theme.includes('new york') || theme.includes('street') || theme.includes('skyscraper') || theme.includes('downtown') || theme.includes('metropol') || theme.includes('building')) {
       this._matchedArena = 'city';
@@ -721,7 +712,6 @@ class PongGame {
       grad.addColorStop(1, '#301040');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(255, 100, 200, 0.04)');
       drawBorderGlow('rgba(255, 100, 200, 0.08)');
     } else if (theme.includes('sky') || theme.includes('cloud') || theme.includes('heaven') || theme.includes('angel') || theme.includes('air') || theme.includes('wind') || theme.includes('flying') || theme.includes('bird') || theme.includes('eagle') || theme.includes('paradise')) {
       this._matchedArena = 'sky';
@@ -730,7 +720,6 @@ class PongGame {
       grad.addColorStop(1, '#1a3050');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(100, 180, 255, 0.03)');
       drawBorderGlow('rgba(100, 180, 255, 0.06)');
     } else {
       // Default modern background
@@ -739,7 +728,6 @@ class PongGame {
       grad.addColorStop(1, '#0a0a18');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      drawGrid('rgba(139, 92, 246, 0.03)');
       drawBorderGlow('rgba(139, 92, 246, 0.06)');
     }
   }

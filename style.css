@@ -59,11 +59,6 @@ body {
   flex-direction: column;
 }
 
-/* Hidden — no overlay needed for modern look */
-#scanlines {
-  display: none;
-}
-
 #screen-content {
   position: relative;
   width: 100%;
@@ -72,11 +67,6 @@ body {
   z-index: 15;
   display: flex;
   flex-direction: column;
-}
-
-/* No flicker — clean modern look */
-#crt-screen::after {
-  display: none;
 }
 
 /* --- Bottom Bar --- */

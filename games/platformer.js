@@ -227,9 +227,7 @@ class PlatformerGame {
     // Remove collected items far below
     for (let i = this.collectibles.length - 1; i >= 0; i--) {
       if (this.collectibles[i].collected || this.collectibles[i].y + this.scrollOffset > ch + 100) {
-        if (this.collectibles[i].collected || this.collectibles[i].y + this.scrollOffset > ch + 100) {
-          this.collectibles.splice(i, 1);
-        }
+        this.collectibles.splice(i, 1);
       }
     }
 
