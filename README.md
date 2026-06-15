@@ -5,7 +5,7 @@
 <h3 align="center">What if Tetris blocks were made of slime?<br>What if Space Invaders were angry emojis?<br>What if your Pong paddle was a stack of ducks?</h3>
 
 <p align="center">
-  <b>Arcade Remix</b> is a mad-libs arcade — pick a classic game, describe your wildest version, and play it instantly.<br>No downloads, no installs, no excuses.
+  <b>Arcade Remix</b> is a mad-libs arcade. Pick a classic game, describe your wildest version, and play it instantly.<br>No downloads, no installs, no excuses.
 </p>
 
 <p align="center">
