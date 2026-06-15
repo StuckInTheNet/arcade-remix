@@ -82,6 +82,20 @@ class TetrisGame {
     } else if (scheme.includes('military') || scheme.includes('army') || scheme.includes('camo') || scheme.includes('soldier') || scheme.includes('tank') || scheme.includes('war') || scheme.includes('combat')) {
       this._matchedColorScheme = 'military';
       return ['#556B2F', '#6B8E23', '#8B8B00', '#4B5320', '#3B3B00', '#808000', '#2E4600'];
+    } else if (scheme.length > 0) {
+      this._matchedColorScheme = 'custom';
+      let hash = 0;
+      for (let i = 0; i < scheme.length; i++) hash = ((hash << 5) - hash + scheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      return [
+        `hsl(${hue}, 70%, 55%)`,
+        `hsl(${(hue + 40) % 360}, 70%, 55%)`,
+        `hsl(${(hue + 80) % 360}, 70%, 55%)`,
+        `hsl(${(hue + 140) % 360}, 70%, 55%)`,
+        `hsl(${(hue + 200) % 360}, 70%, 55%)`,
+        `hsl(${(hue + 260) % 360}, 70%, 55%)`,
+        `hsl(${(hue + 320) % 360}, 70%, 55%)`,
+      ];
     } else {
       return ['#e74c3c', '#3498db', '#2ecc71', '#f1c40f', '#9b59b6', '#e67e22', '#1abc9c'];
     }
@@ -344,6 +358,45 @@ class TetrisGame {
             size: Math.random() * cs * 0.4 + cs * 0.2,
             type: 'circle',
           });
+        }
+      }
+      else if (fx.length > 0) {
+        // Unrecognized input: hash-based unique effect
+        let hash = 0;
+        for (let i = 0; i < fx.length; i++) hash = ((hash << 5) - hash + fx.charCodeAt(i)) | 0;
+        const hue = Math.abs(hash) % 360;
+        const pColor = `hsl(${hue}, 70%, 55%)`;
+        const style = Math.abs(hash) % 3;
+        for (let i = 0; i < 6; i++) {
+          if (style === 0) {
+            // Upward burst
+            this.particles.push({
+              x: baseX + (Math.random() - 0.5) * cs, y: baseY,
+              vx: (Math.random() - 0.5) * 4,
+              vy: -(Math.random() * 10 + 3),
+              life: 1.2, color: pColor,
+              size: Math.random() * cs * 0.3 + cs * 0.1, type: 'circle',
+            });
+          } else if (style === 1) {
+            // Radial burst
+            const angle = (i / 6) * Math.PI * 2;
+            const speed = 4 + Math.random() * 6;
+            this.particles.push({
+              x: baseX, y: baseY,
+              vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+              life: 1, color: pColor,
+              size: Math.random() * cs * 0.25 + cs * 0.1,
+            });
+          } else {
+            // Slow float
+            this.particles.push({
+              x: baseX + (Math.random() - 0.5) * cs * 1.5, y: baseY,
+              vx: (Math.random() - 0.5) * 2,
+              vy: -(Math.random() * 2 + 0.5),
+              life: 1.5, color: pColor,
+              size: Math.random() * cs * 0.3 + cs * 0.15, type: 'circle',
+            });
+          }
         }
       }
       else {
@@ -716,8 +769,77 @@ class TetrisGame {
       ctx.fillStyle = 'rgba(255,255,255,0.15)';
       ctx.fillRect(x + 2, y + 2, s - 4, s * 0.2);
     }
+    else if (mat.length > 0) {
+      // Unrecognized input: generate a unique look from the text
+      this._matchedBlockMaterial = 'custom';
+      let hash = 0;
+      for (let i = 0; i < mat.length; i++) hash = ((hash << 5) - hash + mat.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const baseColor = `hsl(${hue}, 70%, 55%)`;
+      const darkColor = `hsl(${hue}, 70%, 35%)`;
+      const lightColor = `hsl(${hue}, 80%, 75%)`;
+
+      // Pick a shape style based on hash
+      const style = Math.abs(hash) % 4;
+      if (style === 0) {
+        // Rounded pill with glow
+        ctx.shadowColor = baseColor;
+        ctx.shadowBlur = 6;
+        ctx.fillStyle = baseColor;
+        ctx.beginPath();
+        ctx.roundRect(x + m, y + m, s - m*2, s - m*2, s * 0.35);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = 'rgba(255,255,255,0.35)';
+        ctx.beginPath();
+        ctx.arc(x + s * 0.35, y + s * 0.35, s * 0.12, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (style === 1) {
+        // Gradient block with border
+        const g = ctx.createLinearGradient(x, y, x + s, y + s);
+        g.addColorStop(0, lightColor);
+        g.addColorStop(1, darkColor);
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.roundRect(x + m, y + m, s - m*2, s - m*2, 4);
+        ctx.fill();
+        ctx.strokeStyle = baseColor;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      } else if (style === 2) {
+        // Circle blob
+        ctx.fillStyle = baseColor;
+        ctx.beginPath();
+        ctx.arc(x + s/2, y + s/2, s * 0.42, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = lightColor;
+        ctx.beginPath();
+        ctx.arc(x + s * 0.38, y + s * 0.38, s * 0.15, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        // Glowing outline
+        ctx.fillStyle = 'rgba(0,0,0,0.3)';
+        ctx.beginPath();
+        ctx.roundRect(x + m, y + m, s - m*2, s - m*2, 3);
+        ctx.fill();
+        ctx.shadowColor = baseColor;
+        ctx.shadowBlur = 10;
+        ctx.strokeStyle = baseColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(x + 3, y + 3, s - 6, s - 6, 2);
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+      }
+      // Draw the text as a tiny label on the block
+      ctx.fillStyle = 'rgba(255,255,255,0.5)';
+      ctx.font = `${Math.round(s * 0.22)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(mat.slice(0, 4), x + s/2, y + s * 0.92);
+      ctx.textAlign = 'left';
+    }
     else {
-      // Default: use palette color with modern bevel
+      // Truly empty: standard palette block
       this._matchedBlockMaterial = null;
       const grad = ctx.createLinearGradient(x, y, x, y + s);
       grad.addColorStop(0, color);
@@ -863,6 +985,16 @@ class TetrisGame {
       grad.addColorStop(0.5, '#351015');
       grad.addColorStop(1, '#2a1800');
       ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    } else if (theme.length > 0) {
+      this._matchedWorldTheme = 'custom';
+      let hash = 0;
+      for (let i = 0; i < theme.length; i++) hash = ((hash << 5) - hash + theme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const defGrad = ctx.createRadialGradient(this.canvas.width/2, this.canvas.height/2, 0, this.canvas.width/2, this.canvas.height/2, this.canvas.width * 0.6);
+      defGrad.addColorStop(0, `hsl(${hue}, 20%, 10%)`);
+      defGrad.addColorStop(1, `hsl(${hue}, 15%, 5%)`);
+      ctx.fillStyle = defGrad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     } else {
       const defGrad = ctx.createRadialGradient(this.canvas.width/2, this.canvas.height/2, 0, this.canvas.width/2, this.canvas.height/2, this.canvas.width * 0.6);

@@ -189,6 +189,11 @@ class SnakeGame {
       bodyColor = '#7b68ee'; headColor = '#9370db'; this._matchedSnake = 'cosmic';
     } else if (snakeTheme.includes('blood') || snakeTheme.includes('vampire') || snakeTheme.includes('zombie') || snakeTheme.includes('demon') || snakeTheme.includes('evil') || snakeTheme.includes('dark') || snakeTheme.includes('shadow') || snakeTheme.includes('death') || snakeTheme.includes('skull')) {
       bodyColor = '#8b0000'; headColor = '#cc0000'; this._matchedSnake = 'dark';
+    } else if (snakeTheme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < snakeTheme.length; i++) hash = ((hash << 5) - hash + snakeTheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      bodyColor = `hsl(${hue}, 70%, 55%)`; headColor = `hsl(${hue}, 80%, 65%)`; this._matchedSnake = 'custom';
     }
 
     const snakeEmoji = this._getSnakeEmoji();
@@ -402,6 +407,16 @@ class SnakeGame {
       grad.addColorStop(1, '#2a1800');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    } else if (theme.length > 0) {
+      this._matchedWorld = 'custom';
+      let hash = 0;
+      for (let i = 0; i < theme.length; i++) hash = ((hash << 5) - hash + theme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const defGrad = ctx.createRadialGradient(this.canvas.width/2, this.canvas.height/2, 0, this.canvas.width/2, this.canvas.height/2, this.canvas.width * 0.6);
+      defGrad.addColorStop(0, `hsl(${hue}, 20%, 10%)`);
+      defGrad.addColorStop(1, `hsl(${hue}, 15%, 5%)`);
+      ctx.fillStyle = defGrad;
+      ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     } else {
       const defGrad = ctx.createRadialGradient(this.canvas.width/2, this.canvas.height/2, 0, this.canvas.width/2, this.canvas.height/2, this.canvas.width * 0.6);
       defGrad.addColorStop(0, '#12122a');
@@ -472,6 +487,11 @@ class SnakeGame {
       color = '#aabbff'; this._matchedFood = 'spirit';
     } else if (foodTheme.includes('cheese') || foodTheme.includes('nachos') || foodTheme.includes('cheddar') || foodTheme.includes('gouda') || foodTheme.includes('brie') || foodTheme.includes('fondue')) {
       color = '#ffcc00'; this._matchedFood = 'cheese';
+    } else if (foodTheme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < foodTheme.length; i++) hash = ((hash << 5) - hash + foodTheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      color = `hsl(${hue}, 70%, 55%)`; this._matchedFood = 'custom';
     }
 
     // Pulsing glow ring around food
@@ -525,6 +545,13 @@ class SnakeGame {
     if (t.includes('gold') || t.includes('treasure')) return { head: '👑', body: '💰' };
     if (t.includes('zombie') || t.includes('undead')) return { head: '🧟', body: '💀' };
     if (t.includes('monkey') || t.includes('ape')) return { head: '🐵', body: '🍌' };
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      const idx = Math.abs(hash) % pool.length;
+      return { head: pool[idx], body: pool[(idx + 7) % pool.length] };
+    }
     return null;
   }
 
@@ -561,6 +588,12 @@ class SnakeGame {
     if (t.includes('cheese')) return '🧀';
     if (t.includes('poison') || t.includes('toxic')) return '☠️';
     if (t.includes('fruit')) return '🍎';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -592,6 +625,11 @@ class SnakeGame {
       color = 'rgba(0, 150, 255, '; this._matchedTrail = 'water';
     } else if (trailTheme.includes('dust') || trailTheme.includes('sand') || trailTheme.includes('earth') || trailTheme.includes('dirt') || trailTheme.includes('mud') || trailTheme.includes('ground') || trailTheme.includes('rock') || trailTheme.includes('gravel')) {
       color = 'rgba(180, 140, 80, '; this._matchedTrail = 'dust';
+    } else if (trailTheme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < trailTheme.length; i++) hash = ((hash << 5) - hash + trailTheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      color = `hsla(${hue}, 70%, 55%, `; this._matchedTrail = 'custom';
     }
 
     for (let i = this.trailPoints.length - 1; i >= 0; i--) {

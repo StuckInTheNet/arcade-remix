@@ -324,6 +324,38 @@ class BreakoutGame {
           type: 'circle',
         });
       }
+    } else if (fx.length > 0) {
+      // Unrecognized input: hash-based unique effect
+      let hash = 0;
+      for (let i = 0; i < fx.length; i++) hash = ((hash << 5) - hash + fx.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const pColor = `hsl(${hue}, 70%, 55%)`;
+      const style = Math.abs(hash) % 3;
+      for (let i = 0; i < 10; i++) {
+        if (style === 0) {
+          this.particles.push({
+            x: brick.x + Math.random() * brick.w, y: cy,
+            vx: (Math.random() - 0.5) * 3,
+            vy: -(Math.random() * 8 + 2),
+            life: 1.1, color: pColor, size: Math.random() * 5 + 3,
+          });
+        } else if (style === 1) {
+          const angle = (i / 10) * Math.PI * 2;
+          const speed = 4 + Math.random() * 5;
+          this.particles.push({
+            x: cx, y: cy,
+            vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+            life: 0.8, color: pColor, size: Math.random() * 5 + 3,
+          });
+        } else {
+          this.particles.push({
+            x: cx + (Math.random() - 0.5) * brick.w, y: cy,
+            vx: (Math.random() - 0.5) * 2,
+            vy: -(Math.random() * 2 + 0.5),
+            life: 1.4, color: pColor, size: Math.random() * 5 + 3, type: 'circle',
+          });
+        }
+      }
     } else {
       // Default: standard burst
       for (let i = 0; i < 8; i++) {
@@ -344,9 +376,18 @@ class BreakoutGame {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Background
+    const _bgTheme = (this.theme.worldTheme || '').toLowerCase();
+    let _bgCenter = '#12122a', _bgEdge = '#0a0a18';
+    if (_bgTheme.length > 0) {
+      let _bgHash = 0;
+      for (let i = 0; i < _bgTheme.length; i++) _bgHash = ((_bgHash << 5) - _bgHash + _bgTheme.charCodeAt(i)) | 0;
+      const _bgHue = Math.abs(_bgHash) % 360;
+      _bgCenter = `hsl(${_bgHue}, 20%, 10%)`;
+      _bgEdge = `hsl(${_bgHue}, 15%, 5%)`;
+    }
     const bgGrad = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width * 0.6);
-    bgGrad.addColorStop(0, '#12122a');
-    bgGrad.addColorStop(1, '#0a0a18');
+    bgGrad.addColorStop(0, _bgCenter);
+    bgGrad.addColorStop(1, _bgEdge);
     ctx.fillStyle = bgGrad;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -421,6 +462,11 @@ class BreakoutGame {
       paddleColor = '#ff9900'; this._matchedPaddle = 'food';
     } else if (paddleTheme.includes('snake') || paddleTheme.includes('lizard') || paddleTheme.includes('reptile') || paddleTheme.includes('crocodile') || paddleTheme.includes('alligator') || paddleTheme.includes('gecko') || paddleTheme.includes('turtle') || paddleTheme.includes('frog') || paddleTheme.includes('toad')) {
       paddleColor = '#32cd32'; this._matchedPaddle = 'reptile';
+    } else if (paddleTheme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < paddleTheme.length; i++) hash = ((hash << 5) - hash + paddleTheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      paddleColor = `hsl(${hue}, 70%, 55%)`; this._matchedPaddle = 'custom';
     }
 
     // Paddle with pill shape and gradient
@@ -436,7 +482,13 @@ class BreakoutGame {
     ctx.roundRect(this.paddleX + 4, this.paddleY + 2, this.paddleW - 8, 3, 1.5);
     ctx.fill();
     // Emoji on paddle
-    const pEmoji = this._getEmoji(paddleTheme, {surf:'🏄',board:'🏄',wave:'🌊',light:'⚡',saber:'⚡',laser:'⚡',wood:'🪵',ruler:'📏',ice:'🧊',fire:'🔥',gold:'👑',metal:'🔧',candy:'🍬',cat:'🐱',dog:'🐶',ghost:'👻',pizza:'🍕',snake:'🐍',leaf:'🌿',space:'🚀',rainbow:'🦄'});
+    let pEmoji = this._getEmoji(paddleTheme, {surf:'🏄',board:'🏄',wave:'🌊',light:'⚡',saber:'⚡',laser:'⚡',wood:'🪵',ruler:'📏',ice:'🧊',fire:'🔥',gold:'👑',metal:'🔧',candy:'🍬',cat:'🐱',dog:'🐶',ghost:'👻',pizza:'🍕',snake:'🐍',leaf:'🌿',space:'🚀',rainbow:'🦄'});
+    if (!pEmoji && paddleTheme.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < paddleTheme.length; i++) hash = ((hash << 5) - hash + paddleTheme.charCodeAt(i)) | 0;
+      pEmoji = pool[Math.abs(hash) % pool.length];
+    }
     if (pEmoji) {
       ctx.font = `${Math.round(this.paddleH * 1.2)}px sans-serif`;
       ctx.textAlign = 'center';
@@ -479,10 +531,21 @@ class BreakoutGame {
       ballColor = '#ff00ff'; ballGlow = '#ffff00'; this._matchedBall = 'rainbow';
     } else if (ballTheme.includes('bowling') || ballTheme.includes('heavy') || ballTheme.includes('wrecking') || ballTheme.includes('boulder') || ballTheme.includes('rock') || ballTheme.includes('stone') || ballTheme.includes('iron') || ballTheme.includes('steel') || ballTheme.includes('metal')) {
       ballColor = '#666666'; ballGlow = '#444444'; this._matchedBall = 'heavy';
+    } else if (ballTheme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < ballTheme.length; i++) hash = ((hash << 5) - hash + ballTheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      ballColor = `hsl(${hue}, 70%, 55%)`; ballGlow = `hsl(${hue}, 80%, 65%)`; this._matchedBall = 'custom';
     }
 
     // Emoji on ball
-    const bEmoji = this._getEmoji(ballTheme, {fire:'🔥',flame:'🔥',meteor:'☄️',comet:'☄️',eye:'👁️',moon:'🌙',planet:'🌍',gold:'💰',sun:'☀️',ice:'❄️',tennis:'🎾',soccer:'⚽',basketball:'🏀',candy:'🍬',bomb:'💣',ghost:'👻',poison:'☠️',toxic:'☠️',hamster:'🐹',cat:'🐱',dog:'🐶',bowling:'🎳',rock:'🪨',disco:'🪩',heart:'❤️',rainbow:'🌈'});
+    let bEmoji = this._getEmoji(ballTheme, {fire:'🔥',flame:'🔥',meteor:'☄️',comet:'☄️',eye:'👁️',moon:'🌙',planet:'🌍',gold:'💰',sun:'☀️',ice:'❄️',tennis:'🎾',soccer:'⚽',basketball:'🏀',candy:'🍬',bomb:'💣',ghost:'👻',poison:'☠️',toxic:'☠️',hamster:'🐹',cat:'🐱',dog:'🐶',bowling:'🎳',rock:'🪨',disco:'🪩',heart:'❤️',rainbow:'🌈'});
+    if (!bEmoji && ballTheme.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < ballTheme.length; i++) hash = ((hash << 5) - hash + ballTheme.charCodeAt(i)) | 0;
+      bEmoji = pool[Math.abs(hash) % pool.length];
+    }
 
     // Outer glow ring
     const glowGrad = ctx.createRadialGradient(this.ballX, this.ballY, this.ballR, this.ballX, this.ballY, this.ballR + 8);

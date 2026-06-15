@@ -263,6 +263,22 @@ class PongGame {
           type: 'circle',
         });
       }
+    } else if (se.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < se.length; i++) hash = ((hash << 5) - hash + se.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const pColor = `hsl(${hue}, 70%, 55%)`;
+      const style = Math.abs(hash) % 3;
+      for (let i = 0; i < 20; i++) {
+        if (style === 0) {
+          this.particles.push({ x: sx, y: this.canvas.height/2, vx: (Math.random()-0.5)*4, vy: -(Math.random()*10+3), life: 1, color: pColor, size: Math.random()*4+2, type: 'circle' });
+        } else if (style === 1) {
+          const angle = (i/20)*Math.PI*2; const speed = 4+Math.random()*6;
+          this.particles.push({ x: sx, y: this.canvas.height/2, vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed, life: 0.9, color: pColor, size: Math.random()*4+2, type: 'circle' });
+        } else {
+          this.particles.push({ x: Math.random()*this.canvas.width, y: this.canvas.height/2, vx: (Math.random()-0.5)*2, vy: -(Math.random()*2+0.5), life: 1.3, color: pColor, size: Math.random()*4+2, type: 'circle' });
+        }
+      }
     } else {
       // Default: colored squares
       for (let i = 0; i < 15; i++) {
@@ -345,6 +361,11 @@ class PongGame {
       paddleColor = '#cc0000'; this._matchedPaddle = 'dark';
     } else if (paddleTheme.includes('surf') || paddleTheme.includes('beach') || paddleTheme.includes('ocean') || paddleTheme.includes('wave') || paddleTheme.includes('water') || paddleTheme.includes('tropical') || paddleTheme.includes('hawaii') || paddleTheme.includes('coral') || paddleTheme.includes('sea')) {
       paddleColor = '#00bcd4'; this._matchedPaddle = 'surf';
+    } else if (paddleTheme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < paddleTheme.length; i++) hash = ((hash << 5) - hash + paddleTheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      paddleColor = `hsl(${hue}, 70%, 55%)`; this._matchedPaddle = 'custom';
     }
 
     // Paddles
@@ -425,6 +446,11 @@ class PongGame {
       ballColor = '#ff9900'; ballGlow = '#ff6600'; this._matchedBall = 'food';
     } else if (ballTheme.includes('eye') || ballTheme.includes('eyeball') || ballTheme.includes('cyclops') || ballTheme.includes('sauron') || ballTheme.includes('vision')) {
       ballColor = '#ffffff'; ballGlow = '#ff0000'; this._matchedBall = 'eye';
+    } else if (ballTheme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < ballTheme.length; i++) hash = ((hash << 5) - hash + ballTheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      ballColor = `hsl(${hue}, 70%, 55%)`; ballGlow = `hsl(${hue}, 80%, 65%)`; this._matchedBall = 'custom';
     }
 
     const ballEmoji = this._getBallEmoji();
@@ -556,6 +582,12 @@ class PongGame {
     if (t.includes('gold') || t.includes('treasure')) return '👑';
     if (t.includes('banana')) return '🍌';
     if (t.includes('cactus')) return '🌵';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -585,6 +617,12 @@ class PongGame {
     if (t.includes('heart') || t.includes('love')) return '❤️';
     if (t.includes('cat')) return '🐱';
     if (t.includes('dog')) return '🐶';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -721,6 +759,17 @@ class PongGame {
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
       drawBorderGlow('rgba(100, 180, 255, 0.06)');
+    } else if (theme.length > 0) {
+      this._matchedArena = 'custom';
+      let hash = 0;
+      for (let i = 0; i < theme.length; i++) hash = ((hash << 5) - hash + theme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const grad = ctx.createRadialGradient(this.canvas.width/2, this.canvas.height/2, 0, this.canvas.width/2, this.canvas.height/2, this.canvas.width * 0.6);
+      grad.addColorStop(0, `hsl(${hue}, 20%, 10%)`);
+      grad.addColorStop(1, `hsl(${hue}, 15%, 5%)`);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      drawBorderGlow(`hsla(${hue}, 70%, 50%, 0.08)`);
     } else {
       // Default modern background
       const grad = ctx.createRadialGradient(this.canvas.width/2, this.canvas.height/2, 0, this.canvas.width/2, this.canvas.height/2, this.canvas.width * 0.6);

@@ -291,6 +291,22 @@ class InvadersGame {
           type: 'circle',
         });
       }
+    } else if (et.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < et.length; i++) hash = ((hash << 5) - hash + et.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const pColor = `hsl(${hue}, 70%, 55%)`;
+      const style = Math.abs(hash) % 3;
+      for (let i = 0; i < 10; i++) {
+        if (style === 0) {
+          this.particles.push({ x: cx, y: cy, vx: (Math.random()-0.5)*3, vy: -(Math.random()*8+2), life: 1, color: pColor, size: Math.random()*4+2, type: 'circle' });
+        } else if (style === 1) {
+          const angle = (i/10)*Math.PI*2; const speed = 4+Math.random()*5;
+          this.particles.push({ x: cx, y: cy, vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed, life: 0.8, color: pColor, size: Math.random()*4+2 });
+        } else {
+          this.particles.push({ x: cx+(Math.random()-0.5)*enemy.w, y: cy, vx: (Math.random()-0.5)*2, vy: -(Math.random()*2+0.5), life: 1.4, color: pColor, size: Math.random()*4+3, type: 'circle' });
+        }
+      }
     } else {
       // Default: generic colored squares
       for (let i = 0; i < 8; i++) {
@@ -353,6 +369,11 @@ class InvadersGame {
       bulletColor = '#ff66ff'; this._matchedWeapon = 'music';
     } else if (weaponTheme.includes('sword') || weaponTheme.includes('blade') || weaponTheme.includes('knife') || weaponTheme.includes('dagger') || weaponTheme.includes('katana') || weaponTheme.includes('axe') || weaponTheme.includes('arrow') || weaponTheme.includes('bow') || weaponTheme.includes('spear') || weaponTheme.includes('lance')) {
       bulletColor = '#cccccc'; this._matchedWeapon = 'melee';
+    } else if (weaponTheme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < weaponTheme.length; i++) hash = ((hash << 5) - hash + weaponTheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      bulletColor = `hsl(${hue}, 70%, 55%)`; this._matchedWeapon = 'custom';
     }
 
     // Bullet emoji lookup
@@ -563,6 +584,16 @@ class InvadersGame {
       grad.addColorStop(1, '#301040');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    } else if (theme.length > 0) {
+      this._matchedWorld = 'custom';
+      let hash = 0;
+      for (let i = 0; i < theme.length; i++) hash = ((hash << 5) - hash + theme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      const defGrad = ctx.createRadialGradient(this.canvas.width/2, this.canvas.height/2, 0, this.canvas.width/2, this.canvas.height/2, this.canvas.width * 0.7);
+      defGrad.addColorStop(0, `hsl(${hue}, 20%, 10%)`);
+      defGrad.addColorStop(1, `hsl(${hue}, 15%, 5%)`);
+      ctx.fillStyle = defGrad;
+      ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     } else {
       // Default: starfield
       const defGrad = ctx.createRadialGradient(this.canvas.width/2, this.canvas.height/2, 0, this.canvas.width/2, this.canvas.height/2, this.canvas.width * 0.7);
@@ -625,6 +656,11 @@ class InvadersGame {
       color = '#32cd32'; this._matchedShip = 'nature';
     } else if (shipTheme.includes('alien') || shipTheme.includes('ufo') || shipTheme.includes('cosmic') || shipTheme.includes('galaxy') || shipTheme.includes('space') || shipTheme.includes('nebula') || shipTheme.includes('star') || shipTheme.includes('martian') || shipTheme.includes('xenomorph')) {
       color = '#9370db'; this._matchedShip = 'alien';
+    } else if (shipTheme.length > 0) {
+      let hash = 0;
+      for (let i = 0; i < shipTheme.length; i++) hash = ((hash << 5) - hash + shipTheme.charCodeAt(i)) | 0;
+      const hue = Math.abs(hash) % 360;
+      color = `hsl(${hue}, 70%, 55%)`; this._matchedShip = 'custom';
     }
 
     // Emoji ship if theme matches
@@ -674,6 +710,12 @@ class InvadersGame {
     if (t.includes('eagle') || t.includes('hawk') || t.includes('bird')) return '🦅';
     if (t.includes('star') || t.includes('cosmic')) return '⭐';
     if (t.includes('tank') || t.includes('war')) return '🔫';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -691,6 +733,12 @@ class InvadersGame {
     if (t.includes('star') || t.includes('cosmic')) return '⭐';
     if (t.includes('flower') || t.includes('petal')) return '🌸';
     if (t.includes('music') || t.includes('note')) return '🎵';
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      return pool[Math.abs(hash) % pool.length];
+    }
     return null;
   }
 
@@ -708,6 +756,13 @@ class InvadersGame {
     if (t.includes('cat') || t.includes('kitten')) return ['😼','🙀','😾','😿','😸','😹'];
     if (t.includes('food') || t.includes('pizza')) return ['🍕','🍔','🌮','🌭','🍩','🧁'];
     if (t.includes('fruit')) return ['🍎','🍊','🍋','🍇','🍉','🍓'];
+    if (t.length > 0) {
+      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      let hash = 0;
+      for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
+      const idx = Math.abs(hash) % pool.length;
+      return [pool[idx], pool[(idx+1)%pool.length], pool[(idx+2)%pool.length], pool[(idx+3)%pool.length], pool[(idx+4)%pool.length], pool[(idx+5)%pool.length]];
+    }
     return null;
   }
 
