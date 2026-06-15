@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arcade Remix</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="crt-wrapper">
+    <div id="crt-screen">
+      <div id="screen-content">
+
+        <!-- Boot -->
+        <div id="boot-screen" class="screen active">
+          <span class="blink">ARCADE REMIX</span>
+          <div class="boot-text">
+            <span class="boot-line boot-line-1">MEMORY CHECK... <span class="ok">OK</span></span><br>
+            <span class="boot-line boot-line-2">GRAPHICS... <span class="ok">OK</span></span><br>
+            <span class="boot-line boot-line-3">IMAGINATION... <span class="ok">UNLIMITED</span></span>
+          </div>
+          <span class="blink-slow boot-start">PRESS START</span>
+          <button class="retro-btn boot-start" id="btn-start">START</button>
+        </div>
+
+        <!-- Select -->
+        <div id="select-screen" class="screen">
+          <div class="screen-title">Select Your Cartridge</div>
+          <div id="cartridge-grid"></div>
+        </div>
+
+        <!-- Custom Game Builder -->
+        <div id="custom-screen" class="screen">
+          <div class="screen-title">Build Your Game</div>
+          <div class="subtitle">Pick a template, then make it yours</div>
+          <div id="custom-templates"></div>
+          <div class="madlibs-actions">
+            <button class="retro-btn small accent" id="btn-custom-back">Back</button>
+          </div>
+        </div>
+
+        <!-- Mad Libs -->
+        <div id="madlibs-screen" class="screen">
+          <div class="screen-title">Remix Your Game</div>
+          <div class="subtitle" id="madlibs-subtitle"></div>
+          <div id="madlibs-form"></div>
+          <div class="madlibs-actions">
+            <button class="retro-btn small accent" id="btn-back">Back</button>
+            <button class="retro-btn small accent" id="btn-randomize">Random</button>
+            <button class="retro-btn" id="btn-play">Play!</button>
+          </div>
+        </div>
+
+        <!-- Game -->
+        <div id="game-screen" class="screen">
+          <div id="game-hud">
+            <span id="hud-left"><button class="hud-exit" id="btn-exit">EXIT</button><button class="hud-pause" id="btn-pause">PAUSE</button><span id="hud-title"></span></span>
+            <span id="hud-score">SCORE: 0</span>
+          </div>
+          <div id="theme-bar"></div>
+          <div id="canvas-wrapper">
+            <canvas id="game-canvas"></canvas>
+            <div id="splash-overlay" class="hidden">
+              <div class="splash-inner">
+                <div class="splash-icon" id="splash-icon"></div>
+                <h2 id="splash-title"></h2>
+                <div id="splash-fields"></div>
+                <p class="splash-hint">Starting in <b id="splash-count">3</b>...</p>
+              </div>
+            </div>
+            <div id="pause-overlay" class="hidden">
+              <h2>PAUSED</h2>
+              <button class="retro-btn small" id="btn-resume">Resume</button>
+              <button class="retro-btn small accent" id="btn-pause-menu">Menu</button>
+            </div>
+            <div id="game-over-overlay" class="hidden">
+              <h2 class="gameover-title">GAME OVER</h2>
+              <p id="final-score" class="gameover-score"></p>
+              <div class="gameover-buttons">
+                <button class="retro-btn small" id="btn-retry">Retry</button>
+                <button class="retro-btn small accent" id="btn-menu">Menu</button>
+              </div>
+            </div>
+          </div>
+          <div id="game-controls-hint"></div>
+        </div>
+
+      </div>
+    </div>
+    <div id="crt-bezel">
+      <span class="bezel-label">ARCADE REMIX</span>
+      <div class="bezel-controls">
+        <div class="power-led on"></div>
+        <span class="bezel-text">POWER</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="games/tetris.js"></script>
+  <script src="games/snake.js"></script>
+  <script src="games/breakout.js"></script>
+  <script src="games/invaders.js"></script>
+  <script src="games/pong.js"></script>
+  <script src="games/runner.js"></script>
+  <script src="games/flappy.js"></script>
+  <script src="games/asteroids.js"></script>
+  <script src="games/match3.js"></script>
+  <script src="games/platformer.js"></script>
+  <script src="games/dodge.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
