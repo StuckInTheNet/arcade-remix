@@ -770,73 +770,35 @@ class TetrisGame {
       ctx.fillRect(x + 2, y + 2, s - 4, s * 0.2);
     }
     else if (mat.length > 0) {
-      // Unrecognized input: generate a unique look from the text
+      // Unrecognized input: solid colorful block from text hash
       this._matchedBlockMaterial = 'custom';
       let hash = 0;
       for (let i = 0; i < mat.length; i++) hash = ((hash << 5) - hash + mat.charCodeAt(i)) | 0;
       const hue = Math.abs(hash) % 360;
-      const baseColor = `hsl(${hue}, 70%, 55%)`;
-      const darkColor = `hsl(${hue}, 70%, 35%)`;
-      const lightColor = `hsl(${hue}, 80%, 75%)`;
+      const baseColor = `hsl(${hue}, 70%, 50%)`;
+      const lightColor = `hsl(${hue}, 80%, 70%)`;
+      const darkColor = `hsl(${hue}, 70%, 30%)`;
 
-      // Pick a shape style based on hash
-      const style = Math.abs(hash) % 4;
-      if (style === 0) {
-        // Rounded pill with glow
-        ctx.shadowColor = baseColor;
-        ctx.shadowBlur = 6;
-        ctx.fillStyle = baseColor;
-        ctx.beginPath();
-        ctx.roundRect(x + m, y + m, s - m*2, s - m*2, s * 0.35);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.fillStyle = 'rgba(255,255,255,0.35)';
-        ctx.beginPath();
-        ctx.arc(x + s * 0.35, y + s * 0.35, s * 0.12, 0, Math.PI * 2);
-        ctx.fill();
-      } else if (style === 1) {
-        // Gradient block with border
-        const g = ctx.createLinearGradient(x, y, x + s, y + s);
-        g.addColorStop(0, lightColor);
-        g.addColorStop(1, darkColor);
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.roundRect(x + m, y + m, s - m*2, s - m*2, 4);
-        ctx.fill();
-        ctx.strokeStyle = baseColor;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-      } else if (style === 2) {
-        // Circle blob
-        ctx.fillStyle = baseColor;
-        ctx.beginPath();
-        ctx.arc(x + s/2, y + s/2, s * 0.42, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = lightColor;
-        ctx.beginPath();
-        ctx.arc(x + s * 0.38, y + s * 0.38, s * 0.15, 0, Math.PI * 2);
-        ctx.fill();
-      } else {
-        // Glowing outline
-        ctx.fillStyle = 'rgba(0,0,0,0.3)';
-        ctx.beginPath();
-        ctx.roundRect(x + m, y + m, s - m*2, s - m*2, 3);
-        ctx.fill();
-        ctx.shadowColor = baseColor;
-        ctx.shadowBlur = 10;
-        ctx.strokeStyle = baseColor;
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.roundRect(x + 3, y + 3, s - 6, s - 6, 2);
-        ctx.stroke();
-        ctx.shadowBlur = 0;
-      }
-      // Draw the text as a tiny label on the block
-      ctx.fillStyle = 'rgba(255,255,255,0.5)';
-      ctx.font = `${Math.round(s * 0.22)}px sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.fillText(mat.slice(0, 4), x + s/2, y + s * 0.92);
-      ctx.textAlign = 'left';
+      // Always a solid filled block with gradient + glow + shine
+      const g = ctx.createLinearGradient(x, y, x, y + s);
+      g.addColorStop(0, lightColor);
+      g.addColorStop(0.4, baseColor);
+      g.addColorStop(1, darkColor);
+      ctx.shadowColor = baseColor;
+      ctx.shadowBlur = 6;
+      ctx.fillStyle = g;
+      ctx.beginPath();
+      ctx.roundRect(x + m, y + m, s - m*2, s - m*2, 4);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      // Shine highlight
+      ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      ctx.beginPath();
+      ctx.moveTo(x + 3, y + 3);
+      ctx.lineTo(x + s * 0.45, y + 3);
+      ctx.lineTo(x + 3, y + s * 0.45);
+      ctx.closePath();
+      ctx.fill();
     }
     else {
       // Truly empty: standard palette block
