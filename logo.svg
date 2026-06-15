@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 280">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="800" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0c0c14"/>
+      <stop offset="50%" stop-color="#15152a"/>
+      <stop offset="100%" stop-color="#0c0c14"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="20"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="280" rx="16" fill="url(#bg)"/>
+
+  <!-- Ambient glow -->
+  <ellipse cx="400" cy="120" rx="300" ry="100" fill="url(#glow)" filter="url(#blur)"/>
+
+  <!-- Grid lines -->
+  <g stroke="rgba(139,92,246,0.06)" stroke-width="1">
+    <line x1="0" y1="70" x2="800" y2="70"/>
+    <line x1="0" y1="140" x2="800" y2="140"/>
+    <line x1="0" y1="210" x2="800" y2="210"/>
+    <line x1="200" y1="0" x2="200" y2="280"/>
+    <line x1="400" y1="0" x2="400" y2="280"/>
+    <line x1="600" y1="0" x2="600" y2="280"/>
+  </g>
+
+  <!-- Game emoji row -->
+  <text x="120" y="85" font-size="32" text-anchor="middle">🧱</text>
+  <text x="200" y="85" font-size="32" text-anchor="middle">🐍</text>
+  <text x="280" y="85" font-size="32" text-anchor="middle">🧨</text>
+  <text x="360" y="85" font-size="32" text-anchor="middle">👾</text>
+  <text x="440" y="85" font-size="32" text-anchor="middle">🏓</text>
+  <text x="520" y="85" font-size="32" text-anchor="middle">🏃</text>
+  <text x="600" y="85" font-size="32" text-anchor="middle">🐦</text>
+  <text x="680" y="85" font-size="32" text-anchor="middle">☄️</text>
+
+  <!-- Title -->
+  <text x="400" y="165" font-family="Inter, -apple-system, sans-serif" font-size="56" font-weight="800" fill="url(#title)" text-anchor="middle" letter-spacing="6">ARCADE REMIX</text>
+
+  <!-- Subtitle -->
+  <text x="400" y="200" font-family="monospace" font-size="14" fill="#9898b8" text-anchor="middle" letter-spacing="3">YOUR WORDS. YOUR GAME. YOUR RULES.</text>
+
+  <!-- Bottom emoji row -->
+  <text x="200" y="248" font-size="28" text-anchor="middle">💎</text>
+  <text x="300" y="248" font-size="28" text-anchor="middle">🏔️</text>
+  <text x="400" y="248" font-size="28" text-anchor="middle">⚡</text>
+  <text x="500" y="248" font-size="28" text-anchor="middle">🎨</text>
+  <text x="600" y="248" font-size="28" text-anchor="middle">🦆</text>
+
+  <!-- Power LED -->
+  <circle cx="30" cy="20" r="4" fill="#8b5cf6"/>
+  <circle cx="30" cy="20" r="8" fill="rgba(139,92,246,0.2)"/>
+  <text x="44" y="24" font-family="monospace" font-size="10" fill="#5a5a7a" letter-spacing="2">POWER</text>
+</svg>

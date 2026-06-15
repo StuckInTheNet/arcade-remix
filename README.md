@@ -1,8 +1,16 @@
-# ARCADE REMIX
+<p align="center">
+  <img src="logo.svg" alt="Arcade Remix" width="100%">
+</p>
 
-### What if Tetris blocks were made of slime? What if Space Invaders were angry emojis? What if your Pong paddle was a stack of ducks?
+<h3 align="center">What if Tetris blocks were made of slime?<br>What if Space Invaders were angry emojis?<br>What if your Pong paddle was a stack of ducks?</h3>
 
-**Arcade Remix** is a mad-libs arcade — pick a classic game, describe your wildest version, and play it instantly. No downloads, no installs, no excuses.
+<p align="center">
+  <b>Arcade Remix</b> is a mad-libs arcade — pick a classic game, describe your wildest version, and play it instantly.<br>No downloads, no installs, no excuses.
+</p>
+
+<p align="center">
+  <a href="https://stuckinthenet.github.io/arcade-remix/">Play Now</a>
+</p>
 
 ---
 
@@ -19,18 +27,14 @@ Or just open `index.html`. That's it. Zero dependencies.
 
 ## SELECT YOUR CARTRIDGE
 
-```
- -------    -------    -------    -------
-| TETRIS | | SNAKE  | |BREAKOUT| |INVADERS|
-|   puzzle  |   arcade  |   action  |  shooter |
- -------    -------    -------    -------
-|  PONG  | | RUNNER | | FLAPPY | |ASTEROIDS|
-|  sports   |  runner   |  arcade   |  shooter |
- -------    -------    -------    -------
-|MATCH 3 | |PLATFORM| | DODGE  | | CREATE |
-|  puzzle   | platform  |  action   | build own|
- -------    -------    -------    -------
-```
+| | | | |
+|:---:|:---:|:---:|:---:|
+| **Tetris** | **Snake** | **Breakout** | **Invaders** |
+| Puzzle | Arcade | Action | Shooter |
+| **Pong** | **Runner** | **Flappy** | **Asteroids** |
+| Sports | Runner | Arcade | Shooter |
+| **Match 3** | **Platformer** | **Dodge** | **Create** |
+| Puzzle | Platform | Action | Build your own |
 
 **11 games** + a custom game builder that remixes engines with your own prompts.
 
