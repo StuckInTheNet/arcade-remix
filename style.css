@@ -11,27 +11,27 @@
 }
 
 :root {
-  --bg-primary: #0c0c14;
-  --bg-card: #15152a;
-  --bg-input: #1a1a35;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-focus: rgba(139, 92, 246, 0.5);
-  --text-primary: #f0f0f5;
-  --text-secondary: #9898b8;
-  --text-muted: #5a5a7a;
-  --accent: #8b5cf6;
-  --accent-glow: rgba(139, 92, 246, 0.25);
-  --accent-secondary: #f472b6;
-  --accent-warm: #fb923c;
-  --success: #34d399;
-  --danger: #f87171;
+  --bg-primary: #0a0e13;
+  --bg-card: #141b24;
+  --bg-input: #1a2332;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-focus: rgba(0, 210, 180, 0.5);
+  --text-primary: #e8edf2;
+  --text-secondary: #8899aa;
+  --text-muted: #4d5f70;
+  --accent: #00d4b4;
+  --accent-glow: rgba(0, 212, 180, 0.2);
+  --accent-secondary: #ff6b6b;
+  --accent-warm: #ffb443;
+  --success: #00d4b4;
+  --danger: #ff6b6b;
   --radius: 12px;
   --radius-sm: 8px;
 }
 
 body {
   background: var(--bg-primary);
-  background-image: radial-gradient(ellipse at 50% 0%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(0, 212, 180, 0.06) 0%, transparent 60%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -196,11 +196,11 @@ body {
   color: var(--text-primary);
   letter-spacing: 4px;
   animation: none;
-  background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+  background: linear-gradient(135deg, var(--accent), var(--accent-warm));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.3));
+  filter: drop-shadow(0 0 30px rgba(0, 212, 180, 0.25));
 }
 
 .blink-slow {
@@ -221,7 +221,7 @@ body {
   font-size: 14px;
   font-weight: 700;
   padding: 16px 48px;
-  background: linear-gradient(135deg, var(--accent), #7c3aed);
+  background: linear-gradient(135deg, var(--accent), #00b89c);
   color: #fff;
   border: none;
   border-radius: 14px;
@@ -234,7 +234,7 @@ body {
 }
 
 .retro-btn:hover {
-  background: linear-gradient(135deg, #9d74f7, #8b5cf6);
+  background: linear-gradient(135deg, #00e8c6, #00d4b4);
   box-shadow: 0 6px 30px var(--accent-glow);
   transform: translateY(-2px);
 }
@@ -288,7 +288,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), transparent);
+  background: linear-gradient(135deg, rgba(0, 212, 180, 0.08), transparent);
   opacity: 0;
   transition: opacity 0.2s;
 }
@@ -296,7 +296,7 @@ body {
 .cartridge:hover,
 .cartridge.selected {
   border-color: var(--accent);
-  box-shadow: 0 4px 20px var(--accent-glow), 0 0 40px rgba(139, 92, 246, 0.12);
+  box-shadow: 0 4px 20px var(--accent-glow), 0 0 40px rgba(0, 212, 180, 0.12);
   transform: translateY(-3px);
 }
 
@@ -417,8 +417,8 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
   padding: 4px 12px;
-  background: rgba(139, 92, 246, 0.08);
-  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: rgba(0, 212, 180, 0.08);
+  border: 1px solid rgba(0, 212, 180, 0.2);
   border-radius: 999px;
   color: var(--text-secondary);
   cursor: pointer;
@@ -427,7 +427,7 @@ body {
 }
 
 .keyword-chip:hover {
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(0, 212, 180, 0.2);
   border-color: var(--accent);
   color: var(--text-primary);
 }
@@ -619,7 +619,7 @@ body {
   padding: 6px 18px;
   flex-wrap: wrap;
   justify-content: center;
-  background: rgba(139, 92, 246, 0.06);
+  background: rgba(0, 212, 180, 0.06);
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   font-size: 12px;
@@ -675,7 +675,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.3));
+  filter: drop-shadow(0 0 20px rgba(0, 212, 180, 0.3));
 }
 
 .splash-field {
@@ -806,6 +806,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255, 180, 67, 0.25));
 }
 
 #custom-screen.active { animation: slideInRight 0.35s ease-out; }
@@ -819,7 +820,7 @@ body {
 /* --- "+" Card --- */
 .cartridge-add {
   background: transparent;
-  border: 2px dashed rgba(139, 92, 246, 0.3);
+  border: 2px dashed rgba(0, 212, 180, 0.3);
   border-radius: 16px;
   padding: 28px 20px;
   text-align: center;
@@ -829,7 +830,7 @@ body {
 
 .cartridge-add:hover {
   border-color: var(--accent);
-  background: rgba(139, 92, 246, 0.06);
+  background: rgba(0, 212, 180, 0.06);
   transform: translateY(-3px);
   box-shadow: 0 4px 20px var(--accent-glow);
 }
