@@ -14,18 +14,20 @@
         <!-- Boot -->
         <div id="boot-screen" class="screen active">
           <span class="blink">ARCADE REMIX</span>
+          <span class="boot-subtitle">Your classics, remixed your way</span>
           <div class="boot-text">
             <span class="boot-line boot-line-1">MEMORY CHECK... <span class="ok">OK</span></span><br>
             <span class="boot-line boot-line-2">GRAPHICS... <span class="ok">OK</span></span><br>
             <span class="boot-line boot-line-3">IMAGINATION... <span class="ok">UNLIMITED</span></span>
           </div>
+          <span class="boot-tagline">11 games. Your rules. Zero downloads.</span>
           <span class="blink-slow boot-start">PRESS START</span>
           <button class="retro-btn boot-start" id="btn-start">START</button>
         </div>
 
         <!-- Select -->
         <div id="select-screen" class="screen">
-          <div class="screen-title">Select Your Cartridge</div>
+          <div class="screen-title select-title">Pick a game</div>
           <div id="cartridge-grid"></div>
         </div>
 
@@ -70,12 +72,14 @@
             </div>
             <div id="pause-overlay" class="hidden">
               <h2>PAUSED</h2>
+              <p class="pause-subtext">Take a breather</p>
               <button class="retro-btn small" id="btn-resume">Resume</button>
               <button class="retro-btn small accent" id="btn-pause-menu">Menu</button>
             </div>
             <div id="game-over-overlay" class="hidden">
               <h2 class="gameover-title">GAME OVER</h2>
               <p id="final-score" class="gameover-score"></p>
+              <p class="gameover-hint">Try again?</p>
               <div class="gameover-buttons">
                 <button class="retro-btn small" id="btn-retry">Retry</button>
                 <button class="retro-btn small accent" id="btn-menu">Menu</button>

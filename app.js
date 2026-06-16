@@ -8,6 +8,7 @@ const GAMES = {
     name: 'TETRIS',
     icon: '🧱',
     genre: 'Puzzle',
+    desc: 'Stack blocks, clear lines',
     engine: TetrisGame,
     fields: [
       { key: 'blockMaterial', label: 'The falling blocks are made of...', hint: 'e.g. crystal glass, molten lava, gummy bears', placeholder: 'crystal glass' },
@@ -22,6 +23,7 @@ const GAMES = {
     name: 'SNAKE',
     icon: '🐍',
     genre: 'Arcade',
+    desc: 'Eat, grow, don\'t crash',
     engine: SnakeGame,
     fields: [
       { key: 'snakeIs', label: 'The snake is actually a...', hint: 'e.g. fire-breathing dragon, sushi train, conga line of penguins', placeholder: 'fire-breathing dragon' },
@@ -36,6 +38,7 @@ const GAMES = {
     name: 'BREAKOUT',
     icon: '🧨',
     genre: 'Action',
+    desc: 'Smash bricks with a ball',
     engine: BreakoutGame,
     fields: [
       { key: 'paddleIs', label: 'Your paddle is a...', hint: 'e.g. surfboard, lightsaber, giant ruler', placeholder: 'surfboard' },
@@ -50,6 +53,7 @@ const GAMES = {
     name: 'INVADERS',
     icon: '👾',
     genre: 'Shooter',
+    desc: 'Blast the alien swarm',
     engine: InvadersGame,
     fields: [
       { key: 'shipIs', label: 'Your ship is a...', hint: 'e.g. pizza delivery drone, viking longship, flying cat', placeholder: 'pizza delivery drone' },
@@ -64,6 +68,7 @@ const GAMES = {
     name: 'PONG',
     icon: '🏓',
     genre: 'Sports',
+    desc: 'Classic paddle battle',
     engine: PongGame,
     fields: [
       { key: 'paddlesAre', label: 'The paddles are...', hint: 'e.g. medieval shields, rubber ducks, skyscrapers', placeholder: 'medieval shields' },
@@ -78,6 +83,7 @@ const GAMES = {
     name: 'RUNNER',
     icon: '🏃',
     genre: 'Endless',
+    desc: 'Run, jump, survive',
     engine: RunnerGame,
     fields: [
       { key: 'playerIs', label: 'The runner is a...', hint: 'e.g. rocket-powered cat, dinosaur, ninja on a skateboard', placeholder: 'rocket-powered cat' },
@@ -92,6 +98,7 @@ const GAMES = {
     name: 'FLAPPY',
     icon: '🐦',
     genre: 'Arcade',
+    desc: 'Flap through the gaps',
     engine: FlappyGame,
     fields: [
       { key: 'birdIs', label: 'The bird is a...', hint: 'e.g. flying cat, tiny rocket, flapping ghost', placeholder: 'flying cat' },
@@ -106,6 +113,7 @@ const GAMES = {
     name: 'ASTEROIDS',
     icon: '☄️',
     genre: 'Shooter',
+    desc: 'Dodge and destroy space rocks',
     engine: AsteroidsGame,
     fields: [
       { key: 'shipIs', label: 'Your ship is a...', hint: 'e.g. pizza delivery rocket, ghost pirate ship, golden dragon', placeholder: 'pizza delivery rocket' },
@@ -120,6 +128,7 @@ const GAMES = {
     name: 'MATCH 3',
     icon: '💎',
     genre: 'Puzzle',
+    desc: 'Swap gems, chain combos',
     engine: Match3Game,
     fields: [
       { key: 'gemsAre', label: 'The gems look like...', hint: 'e.g. fruits, planets, candy, emojis', placeholder: 'fruits' },
@@ -134,6 +143,7 @@ const GAMES = {
     name: 'PLATFORMER',
     icon: '🏔️',
     genre: 'Platform',
+    desc: 'Jump, climb, collect',
     engine: PlatformerGame,
     fields: [
       { key: 'playerIs', label: 'The climber is a...', hint: 'e.g. ninja cat, jetpack robot, bouncy frog', placeholder: 'ninja cat' },
@@ -148,6 +158,7 @@ const GAMES = {
     name: 'DODGE',
     icon: '⚡',
     genre: 'Action',
+    desc: 'Avoid everything falling',
     engine: DodgeGame,
     fields: [
       { key: 'playerIs', label: 'You are a...', hint: 'e.g. nimble ninja, speedy cat, brave umbrella', placeholder: 'nimble ninja' },
@@ -228,6 +239,11 @@ function buildCartridgeGrid() {
     const el = document.createElement('div');
     el.className = 'cartridge';
     el.dataset.id = game.id;
+    el.dataset.genre = game.genre;
+
+    const descTip = document.createElement('span');
+    descTip.className = 'cartridge-desc';
+    descTip.textContent = game.desc || '';
 
     const icon = document.createElement('span');
     icon.className = 'cartridge-icon';
@@ -241,6 +257,7 @@ function buildCartridgeGrid() {
     genre.className = 'cartridge-genre';
     genre.textContent = game.genre;
 
+    el.appendChild(descTip);
     el.appendChild(icon);
     el.appendChild(label);
     el.appendChild(genre);
@@ -461,13 +478,18 @@ function buildMadLibsForm() {
   const chipId = selectedGame.baseId || selectedGame.id;
   const gameChips = KEYWORD_CHIPS[chipId] || {};
 
-  selectedGame.fields.forEach(field => {
+  selectedGame.fields.forEach((field, idx) => {
     const div = document.createElement('div');
     div.className = 'madlib-field';
 
     const lbl = document.createElement('label');
     lbl.className = 'madlib-label';
-    lbl.textContent = field.label;
+
+    const numSpan = document.createElement('span');
+    numSpan.className = 'field-number';
+    numSpan.textContent = idx + 1;
+    lbl.appendChild(numSpan);
+    lbl.appendChild(document.createTextNode(field.label));
 
     const hint = document.createElement('span');
     hint.className = 'madlib-hint';

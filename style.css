@@ -154,6 +154,7 @@ body {
 }
 
 .screen-title {
+  font-family: 'Inter', sans-serif;
   font-size: clamp(18px, 2.5vw, 28px);
   font-weight: 800;
   color: var(--text-primary);
@@ -163,8 +164,18 @@ body {
   text-transform: uppercase;
 }
 
+.select-title {
+  text-align: left;
+  align-self: flex-start;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  font-size: clamp(20px, 2.5vw, 26px);
+  padding-left: 20px;
+  margin-bottom: 20px;
+}
+
 .subtitle {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   color: var(--text-secondary);
   margin-bottom: 20px;
@@ -173,15 +184,32 @@ body {
 
 /* --- Boot Screen --- */
 #boot-screen {
-  gap: 36px;
+  gap: 24px;
+  align-items: flex-start;
+  padding-left: 8%;
+  padding-right: 8%;
+  max-width: 60%;
+}
+
+@media (max-width: 700px) {
+  #boot-screen {
+    max-width: 100%;
+    align-items: center;
+  }
 }
 
 .boot-text {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  color: var(--text-secondary);
-  text-align: center;
-  line-height: 2;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: left;
+  line-height: 2.2;
+}
+
+@media (max-width: 700px) {
+  .boot-text {
+    text-align: center;
+  }
 }
 
 .boot-text .ok {
@@ -189,9 +217,28 @@ body {
   font-weight: 700;
 }
 
+.boot-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(14px, 2vw, 18px);
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  opacity: 0;
+  animation: fadeIn 0.4s ease-out 0.15s forwards;
+}
+
+.boot-tagline {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+  opacity: 0;
+  animation: fadeIn 0.4s ease-out 0.8s forwards;
+}
+
 .blink {
   font-family: 'Inter', sans-serif;
-  font-size: clamp(28px, 5vw, 48px);
+  font-size: clamp(40px, 6vw, 72px);
   font-weight: 800;
   color: var(--text-primary);
   letter-spacing: 4px;
@@ -231,6 +278,44 @@ body {
   transition: all 0.25s ease;
   position: relative;
   box-shadow: 0 2px 12px var(--accent-glow);
+}
+
+#btn-start {
+  font-size: 18px;
+  padding: 18px 64px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent), #00b89c);
+  position: relative;
+  z-index: 1;
+}
+
+#btn-start::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 19px;
+  background: linear-gradient(var(--start-border-angle, 0deg), var(--accent), var(--accent-warm), var(--accent-secondary), var(--accent));
+  z-index: -1;
+  animation: startBorderSpin 4s linear infinite;
+  opacity: 0.7;
+}
+
+@property --start-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes startBorderSpin {
+  to { --start-border-angle: 360deg; }
+}
+
+@media (max-width: 700px) {
+  #btn-start {
+    width: 100%;
+    font-size: 20px;
+    padding: 20px;
+  }
 }
 
 .retro-btn:hover {
@@ -327,11 +412,80 @@ body {
 }
 
 .cartridge-genre {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 8px;
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+  background: var(--text-muted);
+}
+
+/* Genre-specific pill colors */
+.cartridge[data-genre="Puzzle"] .cartridge-genre { background: #2563eb; }
+.cartridge[data-genre="Arcade"] .cartridge-genre { background: #059669; }
+.cartridge[data-genre="Action"] .cartridge-genre { background: #dc2626; }
+.cartridge[data-genre="Shooter"] .cartridge-genre { background: #ea580c; }
+.cartridge[data-genre="Sports"] .cartridge-genre { background: #7c3aed; }
+.cartridge[data-genre="Endless"] .cartridge-genre,
+.cartridge[data-genre="Runner"] .cartridge-genre { background: #ca8a04; }
+.cartridge[data-genre="Platform"] .cartridge-genre { background: #0891b2; }
+
+/* Per-genre accent border on hover */
+.cartridge[data-genre="Puzzle"]:hover,
+.cartridge[data-genre="Puzzle"].selected { border-color: #2563eb; box-shadow: 0 4px 20px rgba(37, 99, 235, 0.2); }
+.cartridge[data-genre="Arcade"]:hover,
+.cartridge[data-genre="Arcade"].selected { border-color: #059669; box-shadow: 0 4px 20px rgba(5, 150, 105, 0.2); }
+.cartridge[data-genre="Action"]:hover,
+.cartridge[data-genre="Action"].selected { border-color: #dc2626; box-shadow: 0 4px 20px rgba(220, 38, 38, 0.2); }
+.cartridge[data-genre="Shooter"]:hover,
+.cartridge[data-genre="Shooter"].selected { border-color: #ea580c; box-shadow: 0 4px 20px rgba(234, 88, 12, 0.2); }
+.cartridge[data-genre="Sports"]:hover,
+.cartridge[data-genre="Sports"].selected { border-color: #7c3aed; box-shadow: 0 4px 20px rgba(124, 58, 237, 0.2); }
+.cartridge[data-genre="Endless"]:hover,
+.cartridge[data-genre="Endless"].selected,
+.cartridge[data-genre="Runner"]:hover,
+.cartridge[data-genre="Runner"].selected { border-color: #ca8a04; box-shadow: 0 4px 20px rgba(202, 138, 4, 0.2); }
+.cartridge[data-genre="Platform"]:hover,
+.cartridge[data-genre="Platform"].selected { border-color: #0891b2; box-shadow: 0 4px 20px rgba(8, 145, 178, 0.2); }
+
+/* Hover tooltip description */
+.cartridge-desc {
+  font-family: 'Inter', sans-serif;
   font-size: 11px;
-  color: var(--text-muted);
-  margin-top: 6px;
-  display: block;
+  color: var(--text-secondary);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateX(-50%) translateY(4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  z-index: 10;
+}
+
+.cartridge-desc::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1e293b;
+}
+
+.cartridge:hover .cartridge-desc {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-6px);
 }
 
 .hint-text {
@@ -382,22 +536,41 @@ body {
 
 .madlib-field {
   margin-bottom: 24px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 12px;
-  padding: 16px 18px 14px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0 0 0 0;
+  position: relative;
 }
 
 .madlib-label {
-  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text-primary);
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 6px;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.2px;
+}
+
+.madlib-label .field-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  flex-shrink: 0;
 }
 
 .madlib-hint {
+  font-family: 'Inter', sans-serif;
   font-size: 12px;
   color: var(--text-muted);
   margin-bottom: 10px;
@@ -437,9 +610,10 @@ body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 15px;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1.5px solid rgba(255, 255, 255, 0.12);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: none;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
   color: var(--text-primary);
   outline: none;
   transition: all 0.2s ease;
@@ -447,12 +621,12 @@ body {
 
 .madlib-input:focus {
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-glow);
+  border-left-color: var(--accent-warm);
+  box-shadow: none;
 }
 
 .madlib-input::placeholder {
-  color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.35);
   font-style: italic;
 }
 
@@ -549,6 +723,14 @@ body {
   color: var(--accent-warm);
   letter-spacing: 6px;
   filter: drop-shadow(0 0 20px rgba(251, 146, 60, 0.3));
+}
+
+.pause-subtext {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  margin-top: -8px;
 }
 
 #canvas-wrapper {
@@ -762,6 +944,18 @@ body {
   animation: fadeIn 0.35s ease-out 0.3s forwards;
 }
 
+#game-over-overlay:not(.hidden) .gameover-hint {
+  opacity: 0;
+  animation: fadeIn 0.35s ease-out 0.4s forwards;
+}
+
+#game-over-overlay .gameover-hint {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
 #game-over-overlay:not(.hidden) .gameover-buttons {
   opacity: 0;
   animation: fadeIn 0.35s ease-out 0.5s forwards;
@@ -775,10 +969,6 @@ body {
 }
 
 /* --- Input Interactions --- */
-.madlib-input {
-  transition: all 0.2s ease, transform 0.2s ease;
-}
-
 .madlib-input:focus {
   transform: scale(1.01);
 }
