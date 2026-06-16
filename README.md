@@ -2,137 +2,96 @@
   <img src="logo.svg" alt="Arcade Remix" width="100%">
 </p>
 
-<h3 align="center">What if Tetris blocks were made of slime?<br>What if Space Invaders were angry emojis?<br>What if your Pong paddle was a stack of ducks?</h3>
+<h3 align="center">What if Tetris blocks were made of penguins?<br>What if Space Invaders were angry emojis?<br>What if your Pong paddle was a stack of ducks?</h3>
 
 <p align="center">
-  <b>Arcade Remix</b> is a mad-libs arcade. Pick a classic game, describe your wildest version, and play it instantly.<br>No downloads, no installs, no excuses.
+  Pick a classic game. Describe your version. Play it instantly.
 </p>
 
 <p align="center">
-  <a href="https://stuckinthenet.github.io/arcade-remix/">Play Now</a>
+  <a href="https://stuckinthenet.github.io/arcade-remix/"><b>Play Now</b></a>
 </p>
 
 ---
 
-## INSERT COIN
+## How it works
 
-```bash
-python3 -m http.server 8080
-# open http://localhost:8080
-```
+Every game has 4 prompts. Type anything. The game transforms to match.
 
-Or just open `index.html`. That's it. Zero dependencies.
+Type **"penguin"** for Tetris blocks and every piece becomes 🐧. Type **"duck"** for Pong paddles and your paddle is a column of 🦆. Type **"explode"** for line clears and completed lines burst into fire particles.
+
+Not sure what to type? Keyword chips below each input show what triggers effects. Click one to auto-fill. Or type whatever you want. Every input generates a unique color and style, even if it's not a recognized keyword.
 
 ---
 
-## SELECT YOUR CARTRIDGE
+## Games
 
 <p align="center">
   <img src="games-grid.svg" alt="11 games + Create mode" width="100%">
 </p>
 
-<p align="center"><b>11 games</b> + a custom game builder that remixes engines with your own prompts.</p>
+**11 games** across 6 genres, plus a custom game builder.
+
+| Game | What it is | Controls |
+|------|-----------|----------|
+| **Tetris** | Stack blocks, clear lines | Arrows/WASD, Space drop |
+| **Snake** | Eat, grow, don't crash | Arrows/WASD |
+| **Breakout** | Smash bricks with a ball | Arrows/Mouse, Space launch |
+| **Invaders** | Blast the alien swarm | Arrows, Space shoot |
+| **Pong** | Classic paddle battle vs CPU | Arrows/WS |
+| **Runner** | Run, jump, survive | Space/Up |
+| **Flappy** | Flap through the gaps | Space/Up/Click |
+| **Asteroids** | Dodge and destroy space rocks | Arrows steer, Space shoot |
+| **Match 3** | Swap gems, chain combos | Click to swap |
+| **Platformer** | Jump between platforms | Arrows/WASD, Space jump |
+| **Dodge** | Dodge falling chaos | Arrows/AD |
+
+**ESC** to pause. **EXIT** to return to menu.
 
 ---
 
-## HOW IT WORKS
+## Create mode
 
-Every game has 4 mad-libs fields. Fill them in, hit Play, and watch your words transform the game.
+Hit the **Create** card to remix any engine with fresh prompts.
 
-**Type "slime" for Tetris blocks:**
-Bright green gooey blobs with drip bumps replace standard blocks.
-
-**Type "duck" for Pong paddles:**
-Your paddle becomes a column of duck emoji.
-
-**Type "explode" for line clears:**
-Lines burst into radial fire particles instead of disappearing.
-
-**Type "angry emojis" for Invaders enemies:**
-Rows of angry face emoji march toward you.
-
-Not sure what to type? Clickable keyword chips below each input show you what triggers visual effects. Click one to auto-fill.
+Pick a template (Shooter, Dodger, Runner, Climber, Breaker, Puzzler), fill in your own prompts, and play a unique version built on an existing engine.
 
 ---
 
-## THEME SYSTEM
+## Theme system
 
-The engine matches your input against hundreds of keywords across every visual element:
+Every input transforms the game across 5 layers:
 
-| Layer | What changes | Example |
-|-------|-------------|---------|
-| **Shape** | Game elements transform completely | "slime" blocks = green goo circles |
-| **Emoji** | Elements render as emoji characters | "duck" paddle = column of ducks |
-| **Color** | Palette shifts to match theme | "fire" = reds/oranges, "ice" = blues |
-| **Particles** | Destruction effects change | "melt" = dripping, "shatter" = shards |
-| **Background** | Environment transforms | "space" = starfield, "neon" = grid |
-
----
-
-## CONTROLS
-
-| Game | How to play |
-|------|------------|
-| **Tetris** | Arrows/WASD move, Up/W rotate, Space hard drop |
-| **Snake** | Arrows/WASD to steer |
-| **Breakout** | Arrows/Mouse move paddle, Space launch ball |
-| **Invaders** | Arrows move, Space shoot |
-| **Pong** | Arrows/WS to move paddle vs CPU |
-| **Runner** | Space/Up to jump over obstacles |
-| **Flappy** | Space/Up/Click to flap |
-| **Asteroids** | Arrows steer + thrust, Space shoot |
-| **Match 3** | Click gems to swap, match 3+ to score |
-| **Platformer** | Arrows/WASD move, Space jump |
-| **Dodge** | Arrows/AD to dodge falling objects |
-
-All games: **ESC** to pause, **EXIT** button to return to menu.
+| Layer | What happens |
+|-------|-------------|
+| **Emoji** | Game elements become emoji ("penguin" blocks = 🐧, "duck" paddles = 🦆) |
+| **Material** | Blocks change shape and texture ("slime" = green goo, "lava" = animated cracks) |
+| **Particles** | Destruction effects change ("melt" = dripping, "shatter" = flying shards) |
+| **Color** | Palette shifts to match ("fire" = reds, "ocean" = blues, or any word = unique hash color) |
+| **Background** | Environment transforms ("space" = starfield, "neon" = grid, "volcano" = red gradient) |
 
 ---
 
-## CREATE MODE
+## Run it
 
-Don't see what you want? Hit the **CREATE** card and pick a template:
-
-- **SHOOTER** — Invaders engine with custom enemies and weapons
-- **DODGER** — Dodge engine with custom falling objects
-- **RUNNER** — Runner engine with custom obstacles
-- **CLIMBER** — Platformer engine with custom platforms
-- **BREAKER** — Breakout engine with custom bricks and effects
-- **PUZZLER** — Match 3 engine with custom gem themes
-
-Same engines, completely different vibes. Your prompts, your game.
-
----
-
-## TECH
-
-Vanilla HTML + CSS + JS. No frameworks, no build tools, no node_modules.
-
-Each game is a self-contained ES6 class (~300-500 lines) that renders on a shared canvas. The mad-libs values are passed as a `theme` object to the engine constructor, and keyword matching happens in the draw loop.
-
-```
-arcade-remix/
-  index.html        — shell + screens
-  app.js             — navigation, mad-libs, game launcher
-  style.css          — UI styling + animations
-  games/
-    tetris.js        — 965 lines
-    snake.js         — 680 lines
-    breakout.js      — 550 lines
-    invaders.js      — 590 lines
-    pong.js          — 640 lines
-    runner.js        — ~400 lines
-    flappy.js        — ~350 lines
-    asteroids.js     — ~450 lines
-    match3.js        — ~500 lines
-    platformer.js    — ~400 lines
-    dodge.js         — ~350 lines
+```bash
+python3 -m http.server 8080
 ```
 
-Total: **~9,000 lines** of pure vanilla JS arcade.
+Or just open `index.html`. Zero dependencies.
 
 ---
 
-## LICENSE
+## Tech
 
-MIT — remix it however you want.
+Vanilla HTML/CSS/JS. No frameworks, no build step, no backend.
+
+11 game engines, each a self-contained ES6 class rendering on a shared canvas. Theme values are passed to the constructor and keyword matching happens in the draw loop. Unrecognized words get hashed into unique colors and styles.
+
+**10,600+ lines** of pure browser arcade.
+
+---
+
+## License
+
+MIT
