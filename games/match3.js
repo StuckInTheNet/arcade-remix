@@ -382,12 +382,38 @@ class Match3Game {
     for (const [keyword, emojis] of Object.entries(map)) {
       if (gemsTheme.includes(keyword)) return emojis;
     }
+    if (gemsTheme.includes('ocean') || gemsTheme.includes('sea') || gemsTheme.includes('fish')) return ['🐟','🦈','🐙','🐋','🦑','🐠','🦀'];
+    if (gemsTheme.includes('bug') || gemsTheme.includes('insect')) return ['🐛','🦋','🐝','🐜','🪲','🦗','🐞'];
+    if (gemsTheme.includes('dinosaur') || gemsTheme.includes('dino')) return ['🦖','🦕','🌋','🦴','🥚','🐾','🌿'];
+    if (gemsTheme.includes('space') || gemsTheme.includes('cosmic')) return ['🚀','👽','🛸','☄️','⭐','🌙','🪐'];
+    if (gemsTheme.includes('skull') || gemsTheme.includes('spooky') || gemsTheme.includes('ghost')) return ['💀','👻','🎃','☠️','👿','🦇','🕷️'];
+    if (gemsTheme.includes('vehicle') || gemsTheme.includes('car') || gemsTheme.includes('transport')) return ['🚗','🚀','🚂','✈️','⛵','🚁','🏎️'];
+    if (gemsTheme.includes('weather') || gemsTheme.includes('sky')) return ['☀️','🌙','⭐','☁️','⚡','🌈','❄️'];
+    if (gemsTheme.includes('tree') || gemsTheme.includes('plant') || gemsTheme.includes('nature')) return ['🌲','🌸','🍄','🌵','🍃','🌻','🌿'];
     if (gemsTheme.length > 0) {
-      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      const fallbackMap = {
+        penguin:'🐧', cat:'🐱', dog:'🐶', bear:'🐻', frog:'🐸', monkey:'🐵',
+        fish:'🐟', shark:'🦈', bird:'🐦', chicken:'🐔', duck:'🦆', eagle:'🦅',
+        snake:'🐍', dragon:'🐉', dinosaur:'🦖', unicorn:'🦄', butterfly:'🦋',
+        robot:'🤖', alien:'👽', ghost:'👻', ninja:'🥷', wizard:'🧙', pirate:'🏴‍☠️',
+        pizza:'🍕', taco:'🌮', burger:'🍔', sushi:'🍣', donut:'🍩', cake:'🧁',
+        candy:'🍬', cookie:'🍪', apple:'🍎', banana:'🍌', cherry:'🍒',
+        car:'🚗', rocket:'🚀', train:'🚂', plane:'✈️', boat:'⛵',
+        star:'⭐', moon:'🌙', sun:'☀️', heart:'❤️', diamond:'💎', crown:'👑',
+        fire:'🔥', ice:'🧊', lightning:'⚡', rainbow:'🌈', cloud:'☁️',
+        tree:'🌲', flower:'🌸', mushroom:'🍄', cactus:'🌵', leaf:'🍃',
+        soccer:'⚽', basketball:'🏀', tennis:'🎾',
+        bomb:'💣', skull:'💀', eye:'👁️', brain:'🧠',
+        coin:'🪙', gem:'💎', treasure:'👑', shield:'🛡️',
+      };
+      for (const [word, emoji] of Object.entries(fallbackMap)) {
+        if (gemsTheme.includes(word)) return [emoji, '🐧','🐸','🦋','🍕','⭐','💎'];
+      }
+      const funPool = ['🎮','🎯','🔮','✨','💫','🌟','🎪','🎨','🎲','🌈','💥','🔥'];
       let hash = 0;
       for (let i = 0; i < gemsTheme.length; i++) hash = ((hash << 5) - hash + gemsTheme.charCodeAt(i)) | 0;
-      const idx = Math.abs(hash) % (pool.length - 6);
-      return pool.slice(idx, idx + 7);
+      const idx = Math.abs(hash) % (funPool.length - 6);
+      return funPool.slice(idx, idx + 7);
     }
     return null;
   }

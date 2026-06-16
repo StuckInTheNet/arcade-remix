@@ -270,11 +270,68 @@ class DodgeGame {
     if (t.includes('frog') || t.includes('toad')) return '🐸';
     if (t.includes('dog') || t.includes('puppy') || t.includes('wolf')) return '🐕';
     if (t.includes('bird') || t.includes('eagle') || t.includes('hawk')) return '🐦';
+    if (t.includes('penguin')) return '🐧';
+    if (t.includes('bear') || t.includes('panda')) return '🐻';
+    if (t.includes('monkey') || t.includes('ape')) return '🐵';
+    if (t.includes('chicken')) return '🐔';
+    if (t.includes('duck')) return '🦆';
+    if (t.includes('fish')) return '🐟';
+    if (t.includes('shark')) return '🦈';
+    if (t.includes('whale')) return '🐋';
+    if (t.includes('octopus')) return '🐙';
+    if (t.includes('butterfly')) return '🦋';
+    if (t.includes('bee')) return '🐝';
+    if (t.includes('snake')) return '🐍';
+    if (t.includes('dinosaur') || t.includes('dino')) return '🦖';
+    if (t.includes('dragon')) return '🐉';
+    if (t.includes('unicorn')) return '🦄';
+    if (t.includes('pizza')) return '🍕';
+    if (t.includes('taco')) return '🌮';
+    if (t.includes('burger')) return '🍔';
+    if (t.includes('donut')) return '🍩';
+    if (t.includes('cookie')) return '🍪';
+    if (t.includes('cake')) return '🧁';
+    if (t.includes('rocket')) return '🚀';
+    if (t.includes('train')) return '🚂';
+    if (t.includes('boat') || t.includes('sail')) return '⛵';
+    if (t.includes('skull') || t.includes('death')) return '💀';
+    if (t.includes('alien')) return '👽';
+    if (t.includes('wizard')) return '🧙';
+    if (t.includes('star') || t.includes('cosmic')) return '⭐';
+    if (t.includes('moon')) return '🌙';
+    if (t.includes('sun')) return '☀️';
+    if (t.includes('diamond') || t.includes('gem')) return '💎';
+    if (t.includes('crown') || t.includes('king')) return '👑';
+    if (t.includes('heart') || t.includes('love')) return '❤️';
+    if (t.includes('tree')) return '🌲';
+    if (t.includes('flower')) return '🌸';
+    if (t.includes('mushroom')) return '🍄';
+    if (t.includes('cactus')) return '🌵';
+    if (t.includes('soccer')) return '⚽';
+    if (t.includes('basketball')) return '🏀';
     if (t.length > 0) {
-      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      const fallbackMap = {
+        penguin:'🐧', cat:'🐱', dog:'🐶', bear:'🐻', frog:'🐸', monkey:'🐵',
+        fish:'🐟', shark:'🦈', bird:'🐦', chicken:'🐔', duck:'🦆', eagle:'🦅',
+        snake:'🐍', dragon:'🐉', dinosaur:'🦖', unicorn:'🦄', butterfly:'🦋',
+        robot:'🤖', alien:'👽', ghost:'👻', ninja:'🥷', wizard:'🧙', pirate:'🏴‍☠️',
+        pizza:'🍕', taco:'🌮', burger:'🍔', sushi:'🍣', donut:'🍩', cake:'🧁',
+        candy:'🍬', cookie:'🍪', apple:'🍎', banana:'🍌', cherry:'🍒',
+        car:'🚗', rocket:'🚀', train:'🚂', plane:'✈️', boat:'⛵',
+        star:'⭐', moon:'🌙', sun:'☀️', heart:'❤️', diamond:'💎', crown:'👑',
+        fire:'🔥', ice:'🧊', lightning:'⚡', rainbow:'🌈', cloud:'☁️',
+        tree:'🌲', flower:'🌸', mushroom:'🍄', cactus:'🌵', leaf:'🍃',
+        soccer:'⚽', basketball:'🏀', tennis:'🎾',
+        bomb:'💣', skull:'💀', eye:'👁️', brain:'🧠',
+        coin:'🪙', gem:'💎', treasure:'👑', shield:'🛡️',
+      };
+      for (const [word, emoji] of Object.entries(fallbackMap)) {
+        if (t.includes(word)) return emoji;
+      }
+      const funPool = ['🎮','🎯','🔮','✨','💫','🌟','🎪','🎨','🎲','🌈','💥','🔥'];
       let hash = 0;
       for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
-      return pool[Math.abs(hash) % pool.length];
+      return funPool[Math.abs(hash) % funPool.length];
     }
     return null;
   }
@@ -293,11 +350,71 @@ class DodgeGame {
     if (t.includes('spider') || t.includes('bug') || t.includes('insect')) return '🕷️';
     if (t.includes('trash') || t.includes('garbage')) return '🗑️';
     if (t.includes('cactus')) return '🌵';
+    if (t.includes('penguin')) return '🐧';
+    if (t.includes('frog') || t.includes('toad')) return '🐸';
+    if (t.includes('bear') || t.includes('panda')) return '🐻';
+    if (t.includes('monkey') || t.includes('ape')) return '🐵';
+    if (t.includes('chicken')) return '🐔';
+    if (t.includes('duck')) return '🦆';
+    if (t.includes('fish')) return '🐟';
+    if (t.includes('shark')) return '🦈';
+    if (t.includes('whale')) return '🐋';
+    if (t.includes('octopus')) return '🐙';
+    if (t.includes('butterfly')) return '🦋';
+    if (t.includes('bee')) return '🐝';
+    if (t.includes('snake')) return '🐍';
+    if (t.includes('dinosaur') || t.includes('dino')) return '🦖';
+    if (t.includes('dragon')) return '🐉';
+    if (t.includes('unicorn')) return '🦄';
+    if (t.includes('pizza')) return '🍕';
+    if (t.includes('taco')) return '🌮';
+    if (t.includes('burger')) return '🍔';
+    if (t.includes('donut')) return '🍩';
+    if (t.includes('cookie')) return '🍪';
+    if (t.includes('cake')) return '🧁';
+    if (t.includes('cat') || t.includes('kitten')) return '🐱';
+    if (t.includes('dog') || t.includes('puppy')) return '🐶';
+    if (t.includes('robot')) return '🤖';
+    if (t.includes('alien')) return '👽';
+    if (t.includes('ghost')) return '👻';
+    if (t.includes('ninja')) return '🥷';
+    if (t.includes('wizard')) return '🧙';
+    if (t.includes('star')) return '⭐';
+    if (t.includes('moon')) return '🌙';
+    if (t.includes('sun')) return '☀️';
+    if (t.includes('diamond') || t.includes('gem')) return '💎';
+    if (t.includes('crown')) return '👑';
+    if (t.includes('heart') || t.includes('love')) return '❤️';
+    if (t.includes('car')) return '🚗';
+    if (t.includes('rocket')) return '🚀';
+    if (t.includes('tree')) return '🌲';
+    if (t.includes('flower')) return '🌸';
+    if (t.includes('mushroom')) return '🍄';
+    if (t.includes('soccer')) return '⚽';
+    if (t.includes('basketball')) return '🏀';
     if (t.length > 0) {
-      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
+      const fallbackMap = {
+        penguin:'🐧', cat:'🐱', dog:'🐶', bear:'🐻', frog:'🐸', monkey:'🐵',
+        fish:'🐟', shark:'🦈', bird:'🐦', chicken:'🐔', duck:'🦆', eagle:'🦅',
+        snake:'🐍', dragon:'🐉', dinosaur:'🦖', unicorn:'🦄', butterfly:'🦋',
+        robot:'🤖', alien:'👽', ghost:'👻', ninja:'🥷', wizard:'🧙', pirate:'🏴‍☠️',
+        pizza:'🍕', taco:'🌮', burger:'🍔', sushi:'🍣', donut:'🍩', cake:'🧁',
+        candy:'🍬', cookie:'🍪', apple:'🍎', banana:'🍌', cherry:'🍒',
+        car:'🚗', rocket:'🚀', train:'🚂', plane:'✈️', boat:'⛵',
+        star:'⭐', moon:'🌙', sun:'☀️', heart:'❤️', diamond:'💎', crown:'👑',
+        fire:'🔥', ice:'🧊', lightning:'⚡', rainbow:'🌈', cloud:'☁️',
+        tree:'🌲', flower:'🌸', mushroom:'🍄', cactus:'🌵', leaf:'🍃',
+        soccer:'⚽', basketball:'🏀', tennis:'🎾',
+        bomb:'💣', skull:'💀', eye:'👁️', brain:'🧠',
+        coin:'🪙', gem:'💎', treasure:'👑', shield:'🛡️',
+      };
+      for (const [word, emoji] of Object.entries(fallbackMap)) {
+        if (t.includes(word)) return emoji;
+      }
+      const funPool = ['🎮','🎯','🔮','✨','💫','🌟','🎪','🎨','🎲','🌈','💥','🔥'];
       let hash = 0;
       for (let i = 0; i < t.length; i++) hash = ((hash << 5) - hash + t.charCodeAt(i)) | 0;
-      return pool[Math.abs(hash) % pool.length];
+      return funPool[Math.abs(hash) % funPool.length];
     }
     return null;
   }

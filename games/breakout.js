@@ -484,10 +484,30 @@ class BreakoutGame {
     // Emoji on paddle
     let pEmoji = this._getEmoji(paddleTheme, {surf:'🏄',board:'🏄',wave:'🌊',light:'⚡',saber:'⚡',laser:'⚡',wood:'🪵',ruler:'📏',ice:'🧊',fire:'🔥',gold:'👑',metal:'🔧',candy:'🍬',cat:'🐱',dog:'🐶',ghost:'👻',pizza:'🍕',snake:'🐍',leaf:'🌿',space:'🚀',rainbow:'🦄'});
     if (!pEmoji && paddleTheme.length > 0) {
-      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
-      let hash = 0;
-      for (let i = 0; i < paddleTheme.length; i++) hash = ((hash << 5) - hash + paddleTheme.charCodeAt(i)) | 0;
-      pEmoji = pool[Math.abs(hash) % pool.length];
+      const fallbackMap = {
+        penguin:'🐧', cat:'🐱', dog:'🐶', bear:'🐻', frog:'🐸', monkey:'🐵',
+        fish:'🐟', shark:'🦈', bird:'🐦', chicken:'🐔', duck:'🦆', eagle:'🦅',
+        snake:'🐍', dragon:'🐉', dinosaur:'🦖', unicorn:'🦄', butterfly:'🦋',
+        robot:'🤖', alien:'👽', ghost:'👻', ninja:'🥷', wizard:'🧙', pirate:'🏴‍☠️',
+        pizza:'🍕', taco:'🌮', burger:'🍔', sushi:'🍣', donut:'🍩', cake:'🧁',
+        candy:'🍬', cookie:'🍪', apple:'🍎', banana:'🍌', cherry:'🍒',
+        car:'🚗', rocket:'🚀', train:'🚂', plane:'✈️', boat:'⛵',
+        star:'⭐', moon:'🌙', sun:'☀️', heart:'❤️', diamond:'💎', crown:'👑',
+        fire:'🔥', ice:'🧊', lightning:'⚡', rainbow:'🌈', cloud:'☁️',
+        tree:'🌲', flower:'🌸', mushroom:'🍄', cactus:'🌵', leaf:'🍃',
+        soccer:'⚽', basketball:'🏀', tennis:'🎾',
+        bomb:'💣', skull:'💀', eye:'👁️', brain:'🧠',
+        coin:'🪙', gem:'💎', treasure:'👑', shield:'🛡️',
+      };
+      for (const [word, emoji] of Object.entries(fallbackMap)) {
+        if (paddleTheme.includes(word)) { pEmoji = emoji; break; }
+      }
+      if (!pEmoji) {
+        const funPool = ['🎮','🎯','🔮','✨','💫','🌟','🎪','🎨','🎲','🌈','💥','🔥'];
+        let hash = 0;
+        for (let i = 0; i < paddleTheme.length; i++) hash = ((hash << 5) - hash + paddleTheme.charCodeAt(i)) | 0;
+        pEmoji = funPool[Math.abs(hash) % funPool.length];
+      }
     }
     if (pEmoji) {
       ctx.font = `${Math.round(this.paddleH * 1.2)}px sans-serif`;
@@ -541,10 +561,30 @@ class BreakoutGame {
     // Emoji on ball
     let bEmoji = this._getEmoji(ballTheme, {fire:'🔥',flame:'🔥',meteor:'☄️',comet:'☄️',eye:'👁️',moon:'🌙',planet:'🌍',gold:'💰',sun:'☀️',ice:'❄️',tennis:'🎾',soccer:'⚽',basketball:'🏀',candy:'🍬',bomb:'💣',ghost:'👻',poison:'☠️',toxic:'☠️',hamster:'🐹',cat:'🐱',dog:'🐶',bowling:'🎳',rock:'🪨',disco:'🪩',heart:'❤️',rainbow:'🌈'});
     if (!bEmoji && ballTheme.length > 0) {
-      const pool = ['🎮','🎯','🎪','🎨','🎭','🎬','🎵','🎸','🎲','🎰','🃏','🀄','🌀','💫','✨','🔮','💠','🔷'];
-      let hash = 0;
-      for (let i = 0; i < ballTheme.length; i++) hash = ((hash << 5) - hash + ballTheme.charCodeAt(i)) | 0;
-      bEmoji = pool[Math.abs(hash) % pool.length];
+      const fallbackMap = {
+        penguin:'🐧', cat:'🐱', dog:'🐶', bear:'🐻', frog:'🐸', monkey:'🐵',
+        fish:'🐟', shark:'🦈', bird:'🐦', chicken:'🐔', duck:'🦆', eagle:'🦅',
+        snake:'🐍', dragon:'🐉', dinosaur:'🦖', unicorn:'🦄', butterfly:'🦋',
+        robot:'🤖', alien:'👽', ghost:'👻', ninja:'🥷', wizard:'🧙', pirate:'🏴‍☠️',
+        pizza:'🍕', taco:'🌮', burger:'🍔', sushi:'🍣', donut:'🍩', cake:'🧁',
+        candy:'🍬', cookie:'🍪', apple:'🍎', banana:'🍌', cherry:'🍒',
+        car:'🚗', rocket:'🚀', train:'🚂', plane:'✈️', boat:'⛵',
+        star:'⭐', moon:'🌙', sun:'☀️', heart:'❤️', diamond:'💎', crown:'👑',
+        fire:'🔥', ice:'🧊', lightning:'⚡', rainbow:'🌈', cloud:'☁️',
+        tree:'🌲', flower:'🌸', mushroom:'🍄', cactus:'🌵', leaf:'🍃',
+        soccer:'⚽', basketball:'🏀', tennis:'🎾',
+        bomb:'💣', skull:'💀', eye:'👁️', brain:'🧠',
+        coin:'🪙', gem:'💎', treasure:'👑', shield:'🛡️',
+      };
+      for (const [word, emoji] of Object.entries(fallbackMap)) {
+        if (ballTheme.includes(word)) { bEmoji = emoji; break; }
+      }
+      if (!bEmoji) {
+        const funPool = ['🎮','🎯','🔮','✨','💫','🌟','🎪','🎨','🎲','🌈','💥','🔥'];
+        let hash = 0;
+        for (let i = 0; i < ballTheme.length; i++) hash = ((hash << 5) - hash + ballTheme.charCodeAt(i)) | 0;
+        bEmoji = funPool[Math.abs(hash) % funPool.length];
+      }
     }
 
     // Outer glow ring
