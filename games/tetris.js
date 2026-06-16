@@ -576,6 +576,17 @@ class TetrisGame {
       return;
     }
 
+    // Emoji block: REPLACE the entire block with just the emoji
+    const blockEmoji = this._getBlockEmoji();
+    if (blockEmoji) {
+      const emojiSize = Math.round(s * 0.85);
+      ctx.font = `${emojiSize}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.fillText(blockEmoji, x + s / 2, y + s * 0.82);
+      ctx.textAlign = 'left';
+      return;
+    }
+
     // Material-specific rendering — each overrides colors AND shape
     if (mat.includes('slime') || mat.includes('goo') || mat.includes('ooze') || mat.includes('blob') || mat.includes('gummy') || mat.includes('jelly')) {
       this._matchedBlockMaterial = 'slime';
@@ -817,15 +828,6 @@ class TetrisGame {
       ctx.fillRect(x + 2, y + s - 4, s - 4, 2);
     }
 
-    // Emoji overlay on every block (if material matches an emoji)
-    const blockEmoji = this._getBlockEmoji();
-    if (blockEmoji) {
-      const emojiSize = Math.round(s * 0.75);
-      ctx.font = `${emojiSize}px sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.fillText(blockEmoji, x + s / 2, y + s * 0.78);
-      ctx.textAlign = 'left';
-    }
   }
 
   _drawBackground() {
